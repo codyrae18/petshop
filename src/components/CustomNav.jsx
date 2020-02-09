@@ -13,6 +13,10 @@ class CustomNav extends Component {
               <Col>
                 <Link to="/">Home</Link>
               </Col>
+
+              <Col>
+                <Link to="/form">Form</Link>
+              </Col>
             </Row>
           </div>
         </Navbar>
