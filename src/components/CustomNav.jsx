@@ -15,11 +15,7 @@ class CustomNav extends Component {
               </Col>
 
               <Col>
-                <Link to="/about">About</Link>
-              </Col>
-
-              <Col>
-                <Link to="/projects">Projects</Link>
+                <Link to="/form">Form</Link>
               </Col>
             </Row>
           </div>
