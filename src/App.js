@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Home from "./components/Home";
-import Form from "./components/Form";
+import FormApplication from "./components/FormApplication";
 import CustomNav from "./components/CustomNav";
 import "./App.css";
 
@@ -14,7 +14,7 @@ class App extends Component {
           <CustomNav />
           <Switch>
             <Route exact path="/" render={() => <Home />} />
-            <Route exact path="/form" render={() => <Form />} />
+            <Route exact path="/form" render={() => <FormApplication />} />
             <Route exact path="/CustomNav" render={() => <CustomNav />} />
           </Switch>
         </div>
