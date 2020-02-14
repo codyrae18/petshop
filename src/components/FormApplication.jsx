@@ -5,13 +5,18 @@ class FormApplication extends Component {
   state = {};
   render() {
     return (
-      <div style={{ margin: "20%" }}>
+      <div
+        style={{
+          margin: "20%",
+          padding: "5%"
+        }}
+      >
         <div>
           <h1>FORM</h1>
         </div>
 
         <Form>
-          <Row>
+          <Row style={{ marginTop: "1%" }}>
             <Col>
               <Form.Control placeholder="First name" />
             </Col>
@@ -19,7 +24,7 @@ class FormApplication extends Component {
               <Form.Control placeholder="Last name" />
             </Col>
           </Row>
-          <Row>
+          <Row style={{ marginTop: "1%" }}>
             <Col>
               <Form.Control placeholder="Address" />
             </Col>
@@ -27,7 +32,7 @@ class FormApplication extends Component {
               <Form.Control placeholder="Dog's Name" />
             </Col>
           </Row>
-          <Row>
+          <Row style={{ marginTop: "1%" }}>
             <Col>
               <Form.Control placeholder="Breed" />
             </Col>
