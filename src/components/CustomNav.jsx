@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Col, Row } from "react-bootstrap";
+import { Navbar, Col, Row, Form, FormControl } from "react-bootstrap";
 
 class CustomNav extends Component {
   render() {
@@ -11,16 +11,29 @@ class CustomNav extends Component {
           <div className="nav-detail">
             <Row>
               <Col>
+                <h3>K-9 Klub Dog Grooming</h3>
+              </Col>
+
+              <Col style={{ paddingTop: "5%" }}>
                 <Link to="/">Home</Link>
               </Col>
 
-              <Col>
+              <Col style={{ paddingTop: "5%" }}>
                 <Link to="/Current">Current</Link>
               </Col>
 
-              <Col>
+              <Col style={{ paddingTop: "5%" }}>
                 <Link to="/form">Form</Link>
               </Col>
+              <Form inline>
+                <FormControl
+                  type="text"
+                  placeholder="Search"
+                  className=" mr-sm-2"
+                  name="search"
+                  onChange={this.props.searchHandleChange}
+                />
+              </Form>
             </Row>
           </div>
         </Navbar>

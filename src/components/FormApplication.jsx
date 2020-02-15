@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Col, Row } from "react-bootstrap";
+import { Form, Col, Row, Button } from "react-bootstrap";
 
 class FormApplication extends Component {
   state = {};
@@ -11,6 +11,13 @@ class FormApplication extends Component {
           padding: "5%"
         }}
       >
+        <div>
+          <Button variant="success">New Customer</Button>
+          <Button style={{ marginLeft: "1%" }} variant="primary">
+            New Pet
+          </Button>
+        </div>
+
         <div>
           <h1>FORM</h1>
         </div>
@@ -40,6 +47,9 @@ class FormApplication extends Component {
               <Form.Control placeholder="Special Concerns" />
             </Col>
           </Row>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
         </Form>
       </div>
     );
