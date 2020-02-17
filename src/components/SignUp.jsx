@@ -2,9 +2,10 @@ import React, { Component } from "react";
 
 class SignUp extends Component {
   render() {
+    const { handleSubmit, handleChange, accounts } = this.props;
     return (
-      <div>
-        <form>
+      <div style={{ margin: "15%" }}>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <input
               id="username"
@@ -12,6 +13,8 @@ class SignUp extends Component {
               type="username"
               className="form-control"
               placeholder="username"
+              onChange={handleChange}
+              value={accounts.username}
             ></input>
           </div>
           <div className="form-group">
@@ -21,6 +24,8 @@ class SignUp extends Component {
               type="password"
               className="form-control"
               placeholder="Password"
+              onChange={handleChange}
+              value={accounts.password}
             ></input>
           </div>
           <div className="form-group">
@@ -30,15 +35,8 @@ class SignUp extends Component {
               type="password"
               className="form-control"
               placeholder="Confirm Password"
-            ></input>
-          </div>
-          <div className="form-group">
-            <input
-              id="description"
-              name="description"
-              type="description"
-              className="form-control"
-              placeholder="Description"
+              onChange={handleChange}
+              value={accounts.password_digest}
             ></input>
           </div>
           <button type="submit" className="btn btn-primary">
