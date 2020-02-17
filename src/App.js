@@ -9,6 +9,49 @@ import "./App.css";
 import { Switch, Route, withRouter } from "react-router-dom";
 
 class App extends Component {
+  state = {
+    accounts: {
+      username: "",
+      password: "",
+      description: ""
+    }
+  };
+
+  handleLoginChange = event => {
+    const login = { ...this.state.login };
+    login[event.currentTarget.name] = event.currentTarget.value;
+    this.setState({ login });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const { accounts } = this.state;
+
+    fetch("https://localhost:3000/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          name: accounts.name,
+          useranme: accounts.username,
+          password: accounts.password
+        }
+      })
+    })
+      .then(r => r.json())
+      .then(r => {
+        console.log("succesfully created an account", r);
+      });
+  };
+
+  handleChange = event => {
+    const accounts = { ...this.state.accounts };
+    accounts[event.currentTarget.name] = event.currentTarget.value;
+    this.setState({ accounts });
+  };
   render() {
     return (
       <Fragment>
@@ -19,7 +62,17 @@ class App extends Component {
             <Route exact path="/form" render={() => <FormApplication />} />
             <Route exact path="/current" render={() => <Current />} />
             <Route exact path="/customnav" render={() => <CustomNav />} />
-            <Route exact path="/signup" render={() => <SignUp />} />
+            <Route
+              exact
+              path="/signup"
+              render={() => (
+                <SignUp
+                  handleChange={this.handleChange}
+                  handleSubmit={this.handleSubmit}
+                  accounts={this.state.accounts}
+                />
+              )}
+            />
           </Switch>
         </div>
       </Fragment>
