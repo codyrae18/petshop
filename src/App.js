@@ -12,8 +12,7 @@ class App extends Component {
   state = {
     accounts: {
       username: "",
-      password: "",
-      description: ""
+      password: ""
     }
   };
 
