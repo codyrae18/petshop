@@ -12,8 +12,7 @@ class App extends Component {
   state = {
     accounts: {
       username: "",
-      password: "",
-      description: ""
+      password: ""
     }
   };
 
@@ -52,6 +51,56 @@ class App extends Component {
     accounts[event.currentTarget.name] = event.currentTarget.value;
     this.setState({ accounts });
   };
+
+  handleClick = event => {
+    console.log("login", this.state.login);
+
+    // console.log("thiis hits", event);
+    event.preventDefault();
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          username: this.state.login.username,
+          password: this.state.login.password
+        }
+      })
+    };
+    fetch(`http://localhost:3000/api/login`, configObj)
+      .then(resp => resp.json())
+      .then(json => {
+        // console.log("json", json);
+        if (!json.hasOwnProperty("error")) {
+          window.localStorage.setItem("token", json.jwt);
+          window.localStorage.setItem("username", json.user.username);
+          window.localStorage.setItem("userId", `${json.user.id}`);
+          // window.location.assign("http://localhost:3000/users");
+          this.setState({ current_user: json.user });
+          // console.log("fetching", json);
+        } else {
+          this.setState({ error: json.error });
+        }
+      })
+      .then(data => {
+        const localUserId = localStorage.getItem("userId");
+
+        if (localUserId) {
+          this.fetchCurrentUser(localUserId);
+        }
+      })
+      .catch(error => console.log("username or password did not match"));
+    this.setState({
+      username: "",
+      password: ""
+    });
+
+    this.props.history.push("/");
+  };
+
   render() {
     return (
       <Fragment>
