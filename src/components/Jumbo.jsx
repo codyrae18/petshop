@@ -9,7 +9,7 @@ class Jumbo extends Component {
       <div>
         <Jumbotron>
           <h1></h1>
-          <h3 style={{ color: "white" }}></h3>
+          <h3 style={{ color: "white", fontFamily: "sourc-sans-pro;" }}></h3>
           <div>
             <ButtonToolbar>
               <Button
