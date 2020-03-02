@@ -142,8 +142,8 @@ class App extends Component {
     };
     fetch(`http://localhost:3000/customer`, configObj)
       .then(resp => resp.json())
-      .then(json => {
-        console.log("json", json);
+      .then(resp_json => {
+        console.log("resp_json", resp_json);
       });
   };
 
