@@ -101,6 +101,30 @@ class App extends Component {
     this.props.history.push("/");
   };
 
+  addingUser = event => {
+    event.preventDefault();
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          Name: "",
+          LastName: "",
+          DogName: "",
+          Breed: ""
+        }
+      })
+    };
+    fetch(`http://localhostt:3000/api/login`, configObj)
+      .then(resp => resp.json())
+      .then(json => {
+        console.log("json", json);
+      });
+  };
+
   render() {
     return (
       <Fragment>

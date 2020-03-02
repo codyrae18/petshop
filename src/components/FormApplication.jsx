@@ -7,7 +7,7 @@ class FormApplication extends Component {
     return (
       <div
         style={{
-          margin: "20%",
+          margin: "10%",
           padding: "5%"
         }}
       >

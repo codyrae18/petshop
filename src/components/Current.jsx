@@ -5,7 +5,7 @@ class Current extends Component {
   render() {
     return (
       <div>
-        <div style={{ margin: "20%" }}>
+        <div style={{ margin: "20%", marginTop: "10%" }}>
           <h1>Petshop</h1>
           <Container style={{ border: "1px solid black", height: "2500px" }}>
             <Row>
