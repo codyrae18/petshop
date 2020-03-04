@@ -154,7 +154,13 @@ class App extends Component {
           <CustomNav />
           <Switch>
             <Route exact path="/" render={() => <Home />} />
-            <Route exact path="/form" render={() => <FormApplication />} />
+            <Route
+              exact
+              path="/form"
+              render={() => (
+                <FormApplication addingCustomer={this.addingCustomer} />
+              )}
+            />
             <Route exact path="/current" render={() => <Current />} />
             <Route exact path="/customnav" render={() => <CustomNav />} />
             <Route
@@ -165,6 +171,7 @@ class App extends Component {
                   handleChange={this.handleChange}
                   handleSubmit={this.handleSubmit}
                   accounts={this.state.accounts}
+                  addingUser={this.addingUser}
                 />
               )}
             />
