@@ -13,6 +13,13 @@ class App extends Component {
     accounts: {
       username: "",
       password: ""
+    },
+    customerInfo: {
+      name: "",
+      lastName: "",
+      dogName: "",
+      breed: "",
+      specialty: ""
     }
   };
 
@@ -158,7 +165,10 @@ class App extends Component {
               exact
               path="/form"
               render={() => (
-                <FormApplication addingCustomer={this.addingCustomer} />
+                <FormApplication
+                  addingCustomer={this.addingCustomer}
+                  customerInfo={this.state.customerInfo}
+                />
               )}
             />
             <Route exact path="/current" render={() => <Current />} />
