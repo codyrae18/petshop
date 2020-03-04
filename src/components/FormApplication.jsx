@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
 
 class FormApplication extends Component {
-  state = {};
   render() {
+    console.log("form application props", this.props);
     return (
       <div
         style={{
@@ -25,7 +25,15 @@ class FormApplication extends Component {
         <Form>
           <Row style={{ marginTop: "1%" }}>
             <Col>
-              <Form.Control placeholder="First name" />
+              <Form.Control
+                id="firstname"
+                name="firstname"
+                type="firstname"
+                className="form-control"
+                // onChange={handleChange}
+                // value={accounts.username}
+                placeholder="First name"
+              />
             </Col>
             <Col>
               <Form.Control placeholder="Last name" />
