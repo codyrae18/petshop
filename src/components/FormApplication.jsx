@@ -4,6 +4,7 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 class FormApplication extends Component {
   render() {
     console.log("form application props", this.props);
+    const { customerInfo, formHandleChange } = this.props;
     return (
       <div
         style={{
@@ -26,33 +27,62 @@ class FormApplication extends Component {
           <Row style={{ marginTop: "1%" }}>
             <Col>
               <Form.Control
-                id="firstname"
-                name="firstname"
-                type="firstname"
+                id="firstName"
+                name="firstName"
+                type="firstName"
                 className="form-control"
-                // onChange={handleChange}
-                // value={accounts.username}
+                onChange={formHandleChange}
+                value={customerInfo.firstName}
                 placeholder="First name"
               />
             </Col>
             <Col>
-              <Form.Control placeholder="Last name" />
+              <Form.Control
+                placeholder="Last name"
+                id="lastName"
+                name="lastName"
+                type="lastName"
+                className="form-control"
+                onChange={formHandleChange}
+                value={customerInfo.lastName}
+              />
             </Col>
           </Row>
           <Row style={{ marginTop: "1%" }}>
             <Col>
-              <Form.Control placeholder="Address" />
-            </Col>
-            <Col>
-              <Form.Control placeholder="Dog's Name" />
+              <Form.Control
+                placeholder="Dog's Name"
+                id="dogName"
+                name="dogName"
+                type="dogName"
+                className="form-control"
+                onChange={formHandleChange}
+                value={customerInfo.dogName}
+              />
             </Col>
           </Row>
           <Row style={{ marginTop: "1%" }}>
             <Col>
-              <Form.Control placeholder="Breed" />
+              <Form.Control
+                placeholder="Breed"
+                id="breed"
+                name="breed"
+                type="breed"
+                className="form-control"
+                onChange={formHandleChange}
+                value={customerInfo.breed}
+              />
             </Col>
             <Col>
-              <Form.Control placeholder="Special Concerns" />
+              <Form.Control
+                placeholder="Special Concerns"
+                id="specialty"
+                name="specialty"
+                type="specialty"
+                className="form-control"
+                onChange={formHandleChange}
+                value={customerInfo.specialty}
+              />
             </Col>
           </Row>
           <Button variant="primary" type="submit">

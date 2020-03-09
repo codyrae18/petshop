@@ -15,7 +15,7 @@ class App extends Component {
       password: ""
     },
     customerInfo: {
-      name: "",
+      firstName: "",
       lastName: "",
       dogName: "",
       breed: "",
@@ -57,6 +57,12 @@ class App extends Component {
     const accounts = { ...this.state.accounts };
     accounts[event.currentTarget.name] = event.currentTarget.value;
     this.setState({ accounts });
+  };
+
+  formHandleChange = event => {
+    const customerInfo = { ...this.state.customerInfo };
+    customerInfo[event.currentTarget.name] = event.currentTarget.value;
+    this.setState({ customerInfo });
   };
 
   handleClick = event => {
@@ -168,6 +174,7 @@ class App extends Component {
                 <FormApplication
                   addingCustomer={this.addingCustomer}
                   customerInfo={this.state.customerInfo}
+                  formHandleChange={this.formHandleChange}
                 />
               )}
             />
