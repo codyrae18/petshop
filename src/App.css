@@ -41,6 +41,6 @@ nav {
   display: flex;
   justify-content: space-around;
   min-height: 10vh;
-  /* background: grey; */
-  color: white;
+  color: black;
+  background-color: burlywood;
 }

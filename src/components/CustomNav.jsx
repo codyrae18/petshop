@@ -6,7 +6,7 @@ class CustomNav extends Component {
   render() {
     return (
       <nav>
-        <Navbar bg="dark">
+        <Navbar>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <div className="nav-detail">
             <Row>
@@ -15,7 +15,9 @@ class CustomNav extends Component {
               </Col>
 
               <Col style={{ paddingTop: "5%" }}>
-                <Link to="/">Home</Link>
+                <Link to="/" style={{ color: "black" }}>
+                  Home
+                </Link>
               </Col>
 
               <Col style={{ paddingTop: "5%" }}>
