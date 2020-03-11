@@ -27,11 +27,15 @@ class CustomNav extends Component {
               </Col>
 
               <Col style={{ paddingTop: "5%" }}>
-                <Link to="/form">Form</Link>
+                <Link to="/form" style={{ color: "black" }}>
+                  Form
+                </Link>
               </Col>
 
               <Col style={{ paddingTop: "5%" }}>
-                <Link to="/signup">Sign Up</Link>
+                <Link to="/signup" style={{ color: "black" }}>
+                  Sign Up
+                </Link>
               </Col>
 
               <Form inline>
