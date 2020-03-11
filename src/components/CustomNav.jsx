@@ -21,7 +21,9 @@ class CustomNav extends Component {
               </Col>
 
               <Col style={{ paddingTop: "5%" }}>
-                <Link to="/current">Current</Link>
+                <Link to="/current" style={{ color: "black" }}>
+                  Current
+                </Link>
               </Col>
 
               <Col style={{ paddingTop: "5%" }}>
