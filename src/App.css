@@ -40,10 +40,7 @@
 nav {
   display: flex;
   justify-content: space-around;
-  align-items: center;
   min-height: 10vh;
-  background: grey;
+  /* background: grey; */
   color: white;
-  margin-left: 0;
-  margin-right: 0;
 }
