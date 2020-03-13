@@ -44,3 +44,11 @@ nav {
   color: black;
   background-color: burlywood;
 }
+
+nav link {
+  display: flex;
+  justify-content: space-around;
+  min-height: 10vh;
+  color: black;
+  background-color: burlywood;
+}
