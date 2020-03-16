@@ -43,6 +43,7 @@ nav {
   min-height: 10vh;
   color: black;
   background-color: burlywood;
+  font-style: oblique;
 }
 
 nav link {
