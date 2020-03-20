@@ -13,9 +13,9 @@ function Home() {
                 <Form.Control placeholder="Username" />
                 <Form.Control
                   placeholder="Password"
-                  style={{ marginTop: "1%" }}
+                  style={{ marginTop: "2%" }}
                 />
-                <Row style={{ marginTop: "1%" }}>
+                <Row style={{ marginTop: "2%" }}>
                   <Col>
                     <Button variant="success">Login</Button>
                     <Button style={{ marginLeft: "1%" }} variant="primary">
