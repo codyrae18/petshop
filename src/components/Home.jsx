@@ -18,7 +18,11 @@ function Home() {
                 <Row style={{ marginTop: "2%" }}>
                   <Col>
                     <Button variant="success">Login</Button>
-                    <Button style={{ marginLeft: "1%" }} variant="primary">
+                    <Button
+                      onClick=""
+                      style={{ marginLeft: "1%" }}
+                      variant="primary"
+                    >
                       Create a User
                     </Button>
                   </Col>
