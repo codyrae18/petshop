@@ -12,7 +12,7 @@ class SignUp extends Component {
               name="username"
               type="username"
               className="form-control"
-              placeholder="username"
+              placeholder="usernam"
               onChange={handleChange}
               value={accounts.username}
             ></input>
