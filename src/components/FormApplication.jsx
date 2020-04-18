@@ -3,89 +3,76 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 
 class FormApplication extends Component {
   render() {
-    console.log("form application props", this.props);
-    const { customerInfo, formHandleChange } = this.props;
+    // console.log("form application props", this.props);
+    const { clientInfo, formHandleChange, addingClient } = this.props;
     return (
       <div
         style={{
           margin: "10%",
-          padding: "5%"
+          padding: "5%",
         }}
       >
-        <div>
-          <Button variant="success">New Customer</Button>
+        {/* <div>
+          <Button variant="success">New Client</Button>
           <Button style={{ marginLeft: "1%" }} variant="primary">
             New Pet
           </Button>
-        </div>
+        </div> */}
 
         <div>
           <h1>FORM</h1>
         </div>
 
-        <Form>
+        <Form onSubmit={addingClient}>
           <Row style={{ marginTop: "1%" }}>
             <Col>
               <Form.Control
-                id="firstName"
-                name="firstName"
-                type="firstName"
+                id="firstname"
+                name="firstname"
+                type="firstname"
                 className="form-control"
                 onChange={formHandleChange}
-                value={customerInfo.firstName}
+                value={clientInfo.firstName}
                 placeholder="First name"
               />
             </Col>
             <Col>
               <Form.Control
                 placeholder="Last name"
-                id="lastName"
-                name="lastName"
-                type="lastName"
+                id="lastname"
+                name="lastname"
+                type="lastame"
                 className="form-control"
                 onChange={formHandleChange}
-                value={customerInfo.lastName}
+                value={clientInfo.lastName}
               />
             </Col>
           </Row>
           <Row style={{ marginTop: "1%" }}>
             <Col>
               <Form.Control
-                placeholder="Dog's Name"
-                id="dogName"
-                name="dogName"
-                type="dogName"
+                placeholder="Homephone #"
+                id="homephone"
+                name="homephone"
+                type="homephone"
                 className="form-control"
                 onChange={formHandleChange}
-                value={customerInfo.dogName}
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginTop: "1%" }}>
-            <Col>
-              <Form.Control
-                placeholder="Breed"
-                id="breed"
-                name="breed"
-                type="breed"
-                className="form-control"
-                onChange={formHandleChange}
-                value={customerInfo.breed}
+                value={clientInfo.homephone}
               />
             </Col>
             <Col>
               <Form.Control
-                placeholder="Special Concerns"
-                id="specialty"
-                name="specialty"
-                type="specialty"
+                placeholder="Workphone #"
+                id="workphone"
+                name="workphone"
+                type="workphone"
                 className="form-control"
                 onChange={formHandleChange}
-                value={customerInfo.specialty}
+                value={clientInfo.workphone}
               />
             </Col>
           </Row>
-          <Button variant="primary" type="submit">
+          <Button className="mt-3" variant="primary" type="submit">
             Submit
           </Button>
         </Form>
