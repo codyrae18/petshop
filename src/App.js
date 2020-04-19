@@ -29,11 +29,9 @@ class App extends Component {
   }
 
   testFetch = () => {
-    console.log("test hit!!");
     fetch(`http://localhost:3000/clients`)
       .then((resp) => resp.json())
       .then((clients) => {
-        console.log("here is the result", clients);
         this.setState({
           clients,
         });
@@ -44,30 +42,6 @@ class App extends Component {
     const login = { ...this.state.login };
     login[event.currentTarget.name] = event.currentTarget.value;
     this.setState({ login });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const { accounts } = this.state;
-
-    fetch("https://localhost:3000/api/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        user: {
-          name: accounts.name,
-          username: accounts.username,
-          password: accounts.password,
-        },
-      }),
-    })
-      .then((r) => r.json())
-      .then((r) => {
-        console.log("succesfully created an account", r);
-      });
   };
 
   handleChange = (event) => {
@@ -141,12 +115,12 @@ class App extends Component {
       },
       body: JSON.stringify({
         user: {
-          username: "",
-          password: "",
+          username: this.state.accounts.username,
+          password_digest: this.state.accounts.password,
         },
       }),
     };
-    fetch(`http://localhost:3000/api/login`, configObj)
+    fetch(`http://localhost:3000/signup`, configObj)
       .then((resp) => resp.json())
       .then((json) => {
         console.log("json", json);
@@ -198,7 +172,11 @@ class App extends Component {
               )}
             />
             <Route exact path="/current" render={() => <Current />} />
-            <Route exact path="/client" render={() => <Client />} />
+            <Route
+              exact
+              path="/client"
+              render={() => <Client clients={this.state.clients} />}
+            />
             <Route exact path="/customnav" render={() => <CustomNav />} />
             <Route
               exact
@@ -206,7 +184,6 @@ class App extends Component {
               render={() => (
                 <SignUp
                   handleChange={this.handleChange}
-                  handleSubmit={this.handleSubmit}
                   accounts={this.state.accounts}
                   addingUser={this.addingUser}
                 />

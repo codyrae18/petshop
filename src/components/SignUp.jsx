@@ -2,10 +2,10 @@ import React, { Component } from "react";
 
 class SignUp extends Component {
   render() {
-    const { handleSubmit, handleChange, accounts } = this.props;
+    const { addingUser, handleChange, accounts } = this.props;
     return (
       <div style={{ margin: "15%" }}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={addingUser}>
           <div className="form-group">
             <input
               id="username"

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 class Client extends Component {
   state = {};
   render() {
+    console.log("this is my clients props", this.props.clients);
     return (
       <div className="row">
         <div className="col-sm-6">
