@@ -5,6 +5,7 @@ import CustomNav from "./components/CustomNav";
 import Current from "./components/Current";
 import Client from "./components/Client";
 import SignUp from "./components/SignUp";
+import AddDog from "./components/AddDog";
 import "./App.css";
 
 import { Switch, Route, withRouter } from "react-router-dom";
@@ -21,11 +22,19 @@ class App extends Component {
       homephone: "",
       workphone: "",
     },
+    dogInfo: {
+      name: "",
+      color: "",
+      specialconcerns: "",
+      rabies: "",
+    },
     clients: "",
+    breeds: "",
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.testFetch();
+    this.fetchingAllBreed();
   }
 
   testFetch = () => {
@@ -34,6 +43,17 @@ class App extends Component {
       .then((clients) => {
         this.setState({
           clients,
+        });
+      });
+  };
+
+  fetchingAllBreed = () => {
+    fetch(`http://localhost:3000/breeds`)
+      .then((resp) => resp.json())
+      .then((breeds) => {
+        console.log(breeds);
+        this.setState({
+          breeds,
         });
       });
   };
@@ -105,6 +125,17 @@ class App extends Component {
     this.props.history.push("/");
   };
 
+  addingDogToAClient = (event) => {
+    this.props.history.push("/adddog");
+  };
+
+  addingDogFormChange = (event) => {
+    console.log("yo", event);
+    const dogInfo = { ...this.state.dogInfo };
+    dogInfo[event.currentTarget.name] = event.currentTarget.value;
+    this.setState({ dogInfo });
+  };
+
   addingUser = (event) => {
     event.preventDefault();
     const configObj = {
@@ -139,7 +170,7 @@ class App extends Component {
       body: JSON.stringify({
         client: {
           lastname: clientInfo.lastname,
-          firstname: clientInfo.lastname,
+          firstname: clientInfo.firstname,
           homephone: clientInfo.homephone,
           workphone: clientInfo.workphone,
         },
@@ -152,7 +183,7 @@ class App extends Component {
   };
 
   render() {
-    // console.log("clients -> state", this.state.clients);
+    console.log("breeds -> state", this.state.breeds);
 
     return (
       <Fragment>
@@ -175,7 +206,12 @@ class App extends Component {
             <Route
               exact
               path="/client"
-              render={() => <Client clients={this.state.clients} />}
+              render={() => (
+                <Client
+                  clients={this.state.clients}
+                  addingDogToAClient={this.addingDogToAClient}
+                />
+              )}
             />
             <Route exact path="/customnav" render={() => <CustomNav />} />
             <Route
@@ -188,6 +224,11 @@ class App extends Component {
                   addingUser={this.addingUser}
                 />
               )}
+            />
+            <AddDog
+              dogInfo={this.state.dogInfo}
+              addingDogFormChange={this.addingDogFormChange}
+              breeds={this.state.breeds}
             />
           </Switch>
         </div>
