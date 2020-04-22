@@ -2,9 +2,7 @@ import React, { Component } from "react";
 // import AddDog from "./AddDog";
 
 class Client extends Component {
-  state = {};
   render() {
-    console.log("this is my clients props", this.props);
     return (
       <div>
         <div className="row mt-2">
@@ -20,7 +18,8 @@ class Client extends Component {
                   <a className="btn btn-secondary">Dogs list</a>
                   <a
                     className="btn btn-primary ml-1"
-                    onClick={this.props.addingDogToAClient}
+                    id={client.id}
+                    onClick={() => this.props.addingDogToAClient(client)}
                   >
                     Add a dog
                   </a>

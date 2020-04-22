@@ -29,7 +29,8 @@ class App extends Component {
       rabies: "",
     },
     clients: "",
-    breeds: "",
+    client_id: "",
+    breedId: "",
   };
 
   componentWillMount() {
@@ -56,6 +57,47 @@ class App extends Component {
           breeds,
         });
       });
+  };
+
+  submitingDog = (event) => {
+    console.log("final", this.state.dogInfo);
+    console.log("final ID for breed", this.state.breedId);
+    console.log("final ID for Clientt", this.state.client_id);
+    event.preventDefault();
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        dog: {
+          name: this.state.dogInfo.name,
+          color: this.state.dogInfo.color,
+          specialconcerns: this.state.dogInfo.specialconcerns,
+          rabies: this.state.dogInfo.rabies,
+          breed_id: this.state.breedId,
+          client_id: this.state.client_id,
+        },
+      }),
+    };
+    fetch(`http://localhost:3000/dogs`, configObj)
+      .then((resp) => resp.json())
+      .then((dog) => {
+        console.log("after adding dog", dog);
+      });
+  };
+
+  dogBreedOnChange = (breed) => {
+    console.log("dog info:", breed);
+    const breedId = breed.id;
+    this.setState({ breedId });
+  };
+
+  dogInfoInputChange = (event) => {
+    const dogInfo = { ...this.state.dogInfo };
+    dogInfo[event.currentTarget.name] = event.currentTarget.value;
+    this.setState({ dogInfo });
   };
 
   handleLoginChange = (event) => {
@@ -125,15 +167,11 @@ class App extends Component {
     this.props.history.push("/");
   };
 
-  addingDogToAClient = (event) => {
+  addingDogToAClient = (client) => {
+    const client_id = client.id;
+    console.log("this is after clicking ------->>>", client_id);
+    this.setState({ client_id });
     this.props.history.push("/adddog");
-  };
-
-  addingDogFormChange = (event) => {
-    console.log("yo", event);
-    const dogInfo = { ...this.state.dogInfo };
-    dogInfo[event.currentTarget.name] = event.currentTarget.value;
-    this.setState({ dogInfo });
   };
 
   addingUser = (event) => {
@@ -183,8 +221,7 @@ class App extends Component {
   };
 
   render() {
-    console.log("breeds -> state", this.state.breeds);
-
+    console.log("client id on state: ->", this.state.client_id);
     return (
       <Fragment>
         <div>
@@ -227,8 +264,10 @@ class App extends Component {
             />
             <AddDog
               dogInfo={this.state.dogInfo}
-              addingDogFormChange={this.addingDogFormChange}
               breeds={this.state.breeds}
+              submitingDog={this.submitingDog}
+              dogInfoInputChange={this.dogInfoInputChange}
+              dogBreedOnChange={this.dogBreedOnChange}
             />
           </Switch>
         </div>

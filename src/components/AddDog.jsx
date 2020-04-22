@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 
 class AddDog extends Component {
-  state = {};
   render() {
-    console.log(this.props);
-    const { dogInfo, addingDogFormChange, breeds } = this.props;
+    // console.log(this.props);
+    const {
+      dogInfo,
+      submitingDog,
+      breeds,
+      dogInfoInputChange,
+      dogBreedOnChange,
+    } = this.props;
     return (
-      <form className="needs-validation" noValidate>
+      <form className="needs-validation" noValidate onSubmit={submitingDog}>
         <div className="form-row">
           <div className="col-md-4 mb-3">
             <label for="validationCustom01">Name</label>
@@ -16,7 +21,7 @@ class AddDog extends Component {
               id="name"
               name="name"
               value={dogInfo.name}
-              onChange={addingDogFormChange}
+              onChange={dogInfoInputChange}
               required
             ></input>
             <div className="valid-feedback">Looks good!</div>
@@ -38,7 +43,12 @@ class AddDog extends Component {
                 aria-labelledby="dropdownMenuButton"
               >
                 {breeds.map((breed) => (
-                  <a className="dropdown-item" href="#">
+                  <a
+                    className="dropdown-item"
+                    onClick={() => dogBreedOnChange(breed)}
+                    id={breed.id}
+                    key={breed.id}
+                  >
                     {breed.name}
                   </a>
                 ))}
@@ -53,7 +63,7 @@ class AddDog extends Component {
             <input
               type="text"
               className="form-control"
-              onChange={addingDogFormChange}
+              onChange={dogInfoInputChange}
               id="color"
               name="color"
               value={dogInfo.color}
@@ -67,7 +77,7 @@ class AddDog extends Component {
               type="text"
               className="form-control"
               name="specialconcerns"
-              onChange={addingDogFormChange}
+              onChange={dogInfoInputChange}
               value={dogInfo.specialconcerns}
               id="specialconcerns"
               required
