@@ -40,7 +40,7 @@ class CustomNav extends Component {
 
               <Col style={{ paddingTop: "5%" }}>
                 <Link to="/client" style={{ color: "black" }}>
-                  Client
+                  Clients
                 </Link>
               </Col>
 

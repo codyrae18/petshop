@@ -31,14 +31,15 @@ class App extends Component {
     clients: "",
     client_id: "",
     breedId: "",
+    clientDogs: "",
   };
 
   componentWillMount() {
-    this.testFetch();
+    this.fetchingAllClients();
     this.fetchingAllBreed();
   }
 
-  testFetch = () => {
+  fetchingAllClients = () => {
     fetch(`http://localhost:3000/clients`)
       .then((resp) => resp.json())
       .then((clients) => {
@@ -60,6 +61,7 @@ class App extends Component {
   };
 
   submitingDog = (event) => {
+    this.props.history.push("/client");
     console.log("final", this.state.dogInfo);
     console.log("final ID for breed", this.state.breedId);
     console.log("final ID for Clientt", this.state.client_id);
@@ -167,9 +169,21 @@ class App extends Component {
     this.props.history.push("/");
   };
 
+  fetchingClientDogs = (client_id) => {
+    console.log("fetching client dogs, here is the id ->", client_id);
+    fetch(`http://localhost:3000/clients/${client_id}`)
+      .then((resp) => resp.json())
+      .then((dogs) => {
+        console.log("my response", dogs);
+        this.setState({
+          clientDogs: dogs,
+        });
+      });
+  };
+
   addingDogToAClient = (client) => {
     const client_id = client.id;
-    console.log("this is after clicking ------->>>", client_id);
+    this.fetchingClientDogs(client_id);
     this.setState({ client_id });
     this.props.history.push("/adddog");
   };
@@ -221,7 +235,7 @@ class App extends Component {
   };
 
   render() {
-    console.log("client id on state: ->", this.state.client_id);
+    console.log("client dogs: ->", this.state.clientDogs);
     return (
       <Fragment>
         <div>
@@ -247,6 +261,7 @@ class App extends Component {
                 <Client
                   clients={this.state.clients}
                   addingDogToAClient={this.addingDogToAClient}
+                  clientDogs={this.state.clientDogs}
                 />
               )}
             />
@@ -267,6 +282,7 @@ class App extends Component {
               breeds={this.state.breeds}
               submitingDog={this.submitingDog}
               dogInfoInputChange={this.dogInfoInputChange}
+              clientDogs={this.state.clientDogs}
               dogBreedOnChange={this.dogBreedOnChange}
             />
           </Switch>
