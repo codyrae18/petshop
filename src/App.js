@@ -170,7 +170,7 @@ class App extends Component {
   };
 
   fetchingClientDogs = (client_id) => {
-    console.log("fetching client dogs, here is the id ->", client_id);
+    this.setState({ client_id });
     fetch(`http://localhost:3000/clients/${client_id}`)
       .then((resp) => resp.json())
       .then((dogs) => {
@@ -210,6 +210,18 @@ class App extends Component {
       });
   };
 
+  dogOnClickDelete = (dog) => {
+    console.log("dog info", dog);
+    const dogId = dog.id;
+    const dogs = this.state.clientDogs.filter((d) => d.id !== dogId);
+    this.setState({ clientDogs: dogs });
+    fetch(`http://localhost:3000/dogs/${dogId}`, {
+      method: "DELETE",
+    });
+  };
+
+  dogOnClickEdit = (dog) => {};
+
   addingClient = (event) => {
     event.preventDefault();
     const { clientInfo } = this.state;
@@ -235,7 +247,6 @@ class App extends Component {
   };
 
   render() {
-    console.log("client dogs: ->", this.state.clientDogs);
     return (
       <Fragment>
         <div>
@@ -278,6 +289,8 @@ class App extends Component {
               )}
             />
             <AddDog
+              dogOnClickDelete={this.dogOnClickDelete}
+              dogOnClickEdit={this.dogOnClickEdit}
               dogInfo={this.state.dogInfo}
               breeds={this.state.breeds}
               submitingDog={this.submitingDog}

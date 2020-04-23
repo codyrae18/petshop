@@ -107,7 +107,11 @@ class AddDog extends Component {
             Submit form
           </button>
         </form>
-        <DogList clientDogs={clientDogs} />
+        <DogList
+          clientDogs={clientDogs}
+          dogOnClickDelete={this.props.dogOnClickDelete}
+          dogOnClickEdit={this.props.dogOnClickEdit}
+        />
       </div>
     );
   }

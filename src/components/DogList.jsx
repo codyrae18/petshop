@@ -17,6 +17,18 @@ class DogList extends Component {
                     <p className="card-text">
                       special concerns: {dogs.specialconcerns}
                     </p>
+                    <a
+                      className="btn btn-primary ml-1"
+                      onClick={() => this.props.dogOnClickDelete(dogs)}
+                    >
+                      Edit
+                    </a>
+                    <a
+                      className="btn btn-danger ml-1"
+                      onClick={() => this.props.dogOnClickDelete(dogs)}
+                    >
+                      Delete
+                    </a>
                   </div>
                 </div>
               </div>
