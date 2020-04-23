@@ -31,10 +31,11 @@ class App extends Component {
     clients: "",
     client_id: "",
     breedId: "",
+    breedName: "",
     clientDogs: "",
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchingAllClients();
     this.fetchingAllBreed();
   }
@@ -61,10 +62,6 @@ class App extends Component {
   };
 
   submitingDog = (event) => {
-    this.props.history.push("/client");
-    console.log("final", this.state.dogInfo);
-    console.log("final ID for breed", this.state.breedId);
-    console.log("final ID for Clientt", this.state.client_id);
     event.preventDefault();
     const configObj = {
       method: "POST",
@@ -86,14 +83,25 @@ class App extends Component {
     fetch(`http://localhost:3000/dogs`, configObj)
       .then((resp) => resp.json())
       .then((dog) => {
-        console.log("after adding dog", dog);
+        this.setState({
+          dogInfo: {
+            name: "",
+            color: "",
+            specialconcerns: "",
+            rabies: "",
+          },
+        });
+        const client_id = this.state.client_id;
+        this.fetchingClientDogs(client_id);
       });
   };
 
   dogBreedOnChange = (breed) => {
     console.log("dog info:", breed);
     const breedId = breed.id;
+    const breedName = breed.name;
     this.setState({ breedId });
+    this.setState({ breedName });
   };
 
   dogInfoInputChange = (event) => {
@@ -247,6 +255,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("client dogs: ", this.state.clientDogs);
     return (
       <Fragment>
         <div>
@@ -297,6 +306,7 @@ class App extends Component {
               dogInfoInputChange={this.dogInfoInputChange}
               clientDogs={this.state.clientDogs}
               dogBreedOnChange={this.dogBreedOnChange}
+              breedName={this.state.breedName}
             />
           </Switch>
         </div>

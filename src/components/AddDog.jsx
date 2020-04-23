@@ -3,7 +3,7 @@ import DogList from "./DogList";
 
 class AddDog extends Component {
   render() {
-    console.log(this.props);
+    console.log("add dog form props", this.props);
     const {
       dogInfo,
       submitingDog,
@@ -39,7 +39,7 @@ class AddDog extends Component {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Breed
+                  {this.props.breedName === "" ? "Breed" : this.props.breedName}
                 </button>
                 <div
                   className="dropdown-menu"
