@@ -54,7 +54,6 @@ class App extends Component {
     fetch(`http://localhost:3000/breeds`)
       .then((resp) => resp.json())
       .then((breeds) => {
-        console.log(breeds);
         this.setState({
           breeds,
         });
@@ -228,6 +227,16 @@ class App extends Component {
     });
   };
 
+  deleteDogHandleClick = (client) => {
+    console.log("delete click", client);
+    const clientId = client.id;
+    const clients = this.state.clients.filter((c) => c.id !== clientId);
+    this.setState({ clients });
+    fetch(`http://localhost:3000/clients/${clientId}`, {
+      method: "DELETE",
+    });
+  };
+
   dogOnClickEdit = (dog) => {};
 
   addingClient = (event) => {
@@ -249,13 +258,15 @@ class App extends Component {
       }),
     })
       .then((r) => r.json())
-      .then((r) => {
-        console.log("successfully created an account", r);
+      .then((client) => {
+        console.log("after submitting", client);
+        this.fetchingAllClients();
       });
+    this.props.history.push("/client");
   };
 
   render() {
-    console.log("client dogs: ", this.state.clientDogs);
+    console.log("my clients", this.state.clients);
     return (
       <Fragment>
         <div>
@@ -279,6 +290,7 @@ class App extends Component {
               path="/client"
               render={() => (
                 <Client
+                  deleteDogHandleClick={this.deleteDogHandleClick}
                   clients={this.state.clients}
                   addingDogToAClient={this.addingDogToAClient}
                   clientDogs={this.state.clientDogs}

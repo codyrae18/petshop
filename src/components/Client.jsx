@@ -23,6 +23,12 @@ class Client extends Component {
                   >
                     Add a dog
                   </a>
+                  <a
+                    className="btn btn-danger ml-1"
+                    onClick={() => this.props.deleteDogHandleClick(client)}
+                  >
+                    Delete Client
+                  </a>
                 </div>
               </div>
             </div>

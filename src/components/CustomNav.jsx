@@ -14,7 +14,7 @@ class CustomNav extends Component {
                 <h3>K-9 Klub Dog Grooming</h3>
               </Col>
 
-              <Col style={{ paddingTop: "6%" }}>
+              <Col style={{ paddingTop: "5%" }}>
                 <Link to="/" style={{ color: "black" }}>
                   Home
                 </Link>
@@ -28,13 +28,7 @@ class CustomNav extends Component {
 
               <Col style={{ paddingTop: "5%" }}>
                 <Link to="/form" style={{ color: "black" }}>
-                  Form
-                </Link>
-              </Col>
-
-              <Col style={{ paddingTop: "5%" }}>
-                <Link to="/signup" style={{ color: "black" }}>
-                  Sign Up
+                  Add Client
                 </Link>
               </Col>
 
