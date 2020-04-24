@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import AddDog from "./AddDog";
+// import AddPet from "./AddPet";
 
 class Client extends Component {
   render() {
@@ -15,17 +15,22 @@ class Client extends Component {
                   </h5>
                   <p className="card-text">home phone: {client.homephone}</p>
                   <p className="card-text">workphone: {client.workphone}</p>
-                  <a className="btn btn-secondary">Dogs list</a>
+                  <a
+                    className="btn btn-secondary"
+                    onClick={() => this.props.clientPetOnClick(client)}
+                  >
+                    Pets list
+                  </a>
                   <a
                     className="btn btn-primary ml-1"
                     id={client.id}
-                    onClick={() => this.props.addingDogToAClient(client)}
+                    onClick={() => this.props.addingPetToAClient(client)}
                   >
-                    Add a dog
+                    Add a Pet
                   </a>
                   <a
                     className="btn btn-danger ml-1"
-                    onClick={() => this.props.deleteDogHandleClick(client)}
+                    onClick={() => this.props.deletePetHandleClick(client)}
                   >
                     Delete Client
                   </a>

@@ -11,7 +11,7 @@ class CustomNav extends Component {
           <div className="nav-detail">
             <Row>
               <Col>
-                <h3>K-9 Klub Dog Grooming</h3>
+                <h3>K-9 Klub Pet Grooming</h3>
               </Col>
 
               <Col style={{ paddingTop: "5%" }}>

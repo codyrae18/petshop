@@ -1,20 +1,17 @@
 import React, { Component } from "react";
-import DogList from "./DogList";
 
-class AddDog extends Component {
+class AddPet extends Component {
   render() {
-    console.log("add dog form props", this.props);
     const {
-      dogInfo,
-      submitingDog,
+      petInfo,
+      submitingPet,
       breeds,
-      dogInfoInputChange,
-      dogBreedOnChange,
-      clientDogs,
+      petInfoInputChange,
+      petBreedOnChange,
     } = this.props;
     return (
       <div>
-        <form className="needs-validation" noValidate onSubmit={submitingDog}>
+        <form className="needs-validation" noValidate onSubmit={submitingPet}>
           <div className="form-row">
             <div className="col-md-4 mb-3">
               <label for="validationCustom01">Name</label>
@@ -23,8 +20,8 @@ class AddDog extends Component {
                 className="form-control"
                 id="name"
                 name="name"
-                value={dogInfo.name}
-                onChange={dogInfoInputChange}
+                value={petInfo.name}
+                onChange={petInfoInputChange}
                 required
               ></input>
               <div className="valid-feedback">Looks good!</div>
@@ -48,7 +45,7 @@ class AddDog extends Component {
                   {breeds.map((breed) => (
                     <a
                       className="dropdown-item"
-                      onClick={() => dogBreedOnChange(breed)}
+                      onClick={() => petBreedOnChange(breed)}
                       id={breed.id}
                       key={breed.id}
                     >
@@ -66,10 +63,10 @@ class AddDog extends Component {
               <input
                 type="text"
                 className="form-control"
-                onChange={dogInfoInputChange}
+                onChange={petInfoInputChange}
                 id="color"
                 name="color"
-                value={dogInfo.color}
+                value={petInfo.color}
                 required
               ></input>
               <div className="invalid-feedback">
@@ -82,8 +79,8 @@ class AddDog extends Component {
                 type="text"
                 className="form-control"
                 name="specialconcerns"
-                onChange={dogInfoInputChange}
-                value={dogInfo.specialconcerns}
+                onChange={petInfoInputChange}
+                value={petInfo.specialconcerns}
                 id="specialconcerns"
                 required
               ></input>
@@ -97,7 +94,7 @@ class AddDog extends Component {
               <input
                 className="form-check-input"
                 type="checkbox"
-                value={dogInfo.rabies}
+                value={petInfo.rabies}
                 id="invalidCheck"
                 required
               ></input>
@@ -107,14 +104,9 @@ class AddDog extends Component {
             Submit form
           </button>
         </form>
-        <DogList
-          clientDogs={clientDogs}
-          dogOnClickDelete={this.props.dogOnClickDelete}
-          dogOnClickEdit={this.props.dogOnClickEdit}
-        />
       </div>
     );
   }
 }
 
-export default AddDog;
+export default AddPet;

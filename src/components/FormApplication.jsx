@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form, Col, Row, Button } from "react-bootstrap";
-
 class FormApplication extends Component {
   render() {
     // console.log("form application props", this.props);
