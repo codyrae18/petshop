@@ -7,6 +7,8 @@ import Client from "./components/Client";
 import SignUp from "./components/SignUp";
 import AddPet from "./components/AddPet";
 import PetList from "./components/PetList";
+import EditPet from "./components/EditPet";
+
 import "./App.css";
 
 import { Switch, Route, withRouter } from "react-router-dom";
@@ -98,6 +100,35 @@ class App extends Component {
       });
   };
 
+  submitingEditPet = (event) => {
+    event.preventDefault();
+    const petId = this.state.petInfo.id;
+    const client_id = this.state.client_id;
+    const configObj = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        pet: {
+          name: this.state.petInfo.name,
+          color: this.state.petInfo.color,
+          specialconcerns: this.state.petInfo.specialconcerns,
+          rabies: this.state.petInfo.rabies,
+          breed_id: this.state.breedId,
+          client_id: this.state.client_id,
+        },
+      }),
+    };
+    fetch(`http://localhost:3000/pets/${petId}`, configObj)
+      .then((resp) => resp.json())
+      .then((pet) => {
+        console.log(pet);
+        this.fetchingClientPets(client_id);
+      });
+    this.props.history.push("/pet");
+  };
   petBreedOnChange = (breed) => {
     console.log("Pet info:", breed);
     const breedId = breed.id;
@@ -180,7 +211,6 @@ class App extends Component {
   };
 
   fetchingClientPets = (client_id) => {
-    this.setState({ client_id });
     fetch(`http://localhost:3000/clients/${client_id}`)
       .then((resp) => resp.json())
       .then((pets) => {
@@ -221,7 +251,6 @@ class App extends Component {
   };
 
   clientPetOnClick = (client) => {
-    console.log(client);
     const client_id = client.id;
     this.fetchingClientPets(client_id);
     this.setState({ client_id });
@@ -240,7 +269,6 @@ class App extends Component {
   };
 
   deletePetHandleClick = (client) => {
-    console.log("delete click", client);
     const clientId = client.id;
     const clients = this.state.clients.filter((c) => c.id !== clientId);
     this.setState({ clients });
@@ -249,7 +277,10 @@ class App extends Component {
     });
   };
 
-  petOnClickEdit = (pet) => {};
+  petOnClickEdit = (pet) => {
+    this.setState({ petInfo: pet });
+    this.props.history.push("/editPet");
+  };
 
   addingClient = (event) => {
     event.preventDefault();
@@ -286,7 +317,6 @@ class App extends Component {
   };
 
   render() {
-    console.log("state: client name: ", this.state.clientName);
     return (
       <Fragment>
         <div>
@@ -339,6 +369,21 @@ class App extends Component {
                   petInfo={this.state.petInfo}
                   breeds={this.state.breeds}
                   submitingPet={this.submitingPet}
+                  petInfoInputChange={this.petInfoInputChange}
+                  clientPets={this.state.clientPets}
+                  petBreedOnChange={this.petBreedOnChange}
+                  breedName={this.state.breedName}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/editPet"
+              render={() => (
+                <EditPet
+                  petInfo={this.state.petInfo}
+                  breeds={this.state.breeds}
+                  submitingEditPet={this.submitingEditPet}
                   petInfoInputChange={this.petInfoInputChange}
                   clientPets={this.state.clientPets}
                   petBreedOnChange={this.petBreedOnChange}

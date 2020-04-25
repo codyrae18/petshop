@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 class PetList extends Component {
   render() {
-    console.log("my pet list props =>>>", this.props);
     return (
       <div>
         <h1>{this.props.clientName}'s Pet list</h1>
@@ -19,7 +18,7 @@ class PetList extends Component {
                     </p>
                     <a
                       className="btn btn-primary ml-1"
-                      onClick={() => this.props.petOnClickDelete(pets)}
+                      onClick={() => this.props.petOnClickEdit(pets)}
                     >
                       Edit
                     </a>
