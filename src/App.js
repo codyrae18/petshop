@@ -66,6 +66,7 @@ class App extends Component {
 
   submitingPet = (event) => {
     this.props.history.push("pet");
+    const { petInfo, breedId, client_id, clientName } = this.state;
     event.preventDefault();
     const configObj = {
       method: "POST",
@@ -75,12 +76,12 @@ class App extends Component {
       },
       body: JSON.stringify({
         pet: {
-          name: this.state.petInfo.name,
-          color: this.state.petInfo.color,
-          specialconcerns: this.state.petInfo.specialconcerns,
-          rabies: this.state.petInfo.rabies,
-          breed_id: this.state.breedId,
-          client_id: this.state.client_id,
+          name: petInfo.name,
+          color: petInfo.color,
+          specialconcerns: petInfo.specialconcerns,
+          rabies: petInfo.rabies,
+          breed_id: breedId,
+          client_id: client_id,
         },
       }),
     };
@@ -102,8 +103,8 @@ class App extends Component {
 
   submitingEditPet = (event) => {
     event.preventDefault();
-    const petId = this.state.petInfo.id;
-    const client_id = this.state.client_id;
+    const { petInfo, client_id, breedId } = this.state;
+    const petId = petInfo.id;
     const configObj = {
       method: "PUT",
       headers: {
@@ -112,12 +113,12 @@ class App extends Component {
       },
       body: JSON.stringify({
         pet: {
-          name: this.state.petInfo.name,
-          color: this.state.petInfo.color,
-          specialconcerns: this.state.petInfo.specialconcerns,
-          rabies: this.state.petInfo.rabies,
-          breed_id: this.state.breedId,
-          client_id: this.state.client_id,
+          name: petInfo.name,
+          color: petInfo.color,
+          specialconcerns: petInfo.specialconcerns,
+          rabies: petInfo.rabies,
+          breed_id: breedId,
+          client_id: client_id,
         },
       }),
     };
@@ -126,11 +127,18 @@ class App extends Component {
       .then((pet) => {
         console.log(pet);
         this.fetchingClientPets(client_id);
+        this.setState({
+          petInfo: {
+            name: "",
+            color: "",
+            specialconcerns: "",
+            rabies: "",
+          },
+        });
       });
     this.props.history.push("/pet");
   };
   petBreedOnChange = (breed) => {
-    console.log("Pet info:", breed);
     const breedId = breed.id;
     const breedName = breed.name;
     this.setState({ breedId });
@@ -162,9 +170,7 @@ class App extends Component {
   };
 
   handleClick = (event) => {
-    console.log("login", this.state.login);
-
-    // console.log("thiis hits", event);
+    const { login } = this.state;
     event.preventDefault();
     const configObj = {
       method: "POST",
@@ -174,8 +180,8 @@ class App extends Component {
       },
       body: JSON.stringify({
         user: {
-          username: this.state.login.username,
-          password: this.state.login.password,
+          username: login.username,
+          password: login.password,
         },
       }),
     };
@@ -211,6 +217,7 @@ class App extends Component {
   };
 
   fetchingClientPets = (client_id) => {
+    console.log("client info");
     fetch(`http://localhost:3000/clients/${client_id}`)
       .then((resp) => resp.json())
       .then((pets) => {
@@ -225,11 +232,14 @@ class App extends Component {
     const client_id = client.id;
     this.fetchingClientPets(client_id);
     this.setState({ client_id });
+    this.setState({ clientName: client.firstname });
     this.props.history.push("/addPet");
   };
 
   addingUser = (event) => {
     event.preventDefault();
+
+    const { accounts } = this.state;
     const configObj = {
       method: "POST",
       headers: {
@@ -238,8 +248,8 @@ class App extends Component {
       },
       body: JSON.stringify({
         user: {
-          username: this.state.accounts.username,
-          password_digest: this.state.accounts.password,
+          username: accounts.username,
+          password_digest: accounts.password,
         },
       }),
     };
@@ -259,7 +269,6 @@ class App extends Component {
   };
 
   petOnClickDelete = (pet) => {
-    console.log("Pet info", pet);
     const petId = pet.id;
     const pets = this.state.clientPets.filter((d) => d.id !== petId);
     this.setState({ clientPets: pets });
