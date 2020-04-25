@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Col, Row, Form, FormControl } from "react-bootstrap";
 
 class CustomNav extends Component {
   render() {
@@ -25,12 +24,12 @@ class CustomNav extends Component {
         <div className="collapse navbar-collapse" id="navbarText">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <a className="nav-link" href="#">
-                <Link to="/" style={{ color: "black" }}>
+              <Link to="/">
+                <a className="nav-link" href="#" style={{ color: "black" }}>
                   Home
-                </Link>
-                <span className="sr-only">(current)</span>
-              </a>
+                  <span className="sr-only">(current)</span>
+                </a>
+              </Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">

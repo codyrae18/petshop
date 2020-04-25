@@ -249,7 +249,7 @@ class App extends Component {
       body: JSON.stringify({
         user: {
           username: accounts.username,
-          password_digest: accounts.password,
+          password: accounts.password,
         },
       }),
     };
@@ -257,6 +257,7 @@ class App extends Component {
       .then((resp) => resp.json())
       .then((json) => {
         console.log("json", json);
+        this.props.history.push("/");
       });
   };
 
