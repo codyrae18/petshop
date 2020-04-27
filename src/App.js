@@ -329,8 +329,16 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <div>
+        <div class="ui huge header center aligned blue">
+          K9 Grooming
+          <div class="sub header">
+            Manage your account settings and set e-mail preferences.
+          </div>
+        </div>
+        <div class="ui pointing menu">
           <CustomNav />
+        </div>
+        <div class="ui segment">
           <Switch>
             <Route exact path="/" render={() => <Home />} />
             <Route
@@ -421,3 +429,96 @@ class App extends Component {
 }
 
 export default withRouter(App);
+{
+  /* <div>
+        <div class="ui huge header center aligned blue">K9 Grooming</div>
+        <div class="ui grid">
+          <div class="four column">
+            <CustomNav />
+            <Switch>
+              <Route exact path="/" render={() => <Home />} />
+              <Route
+                exact
+                path="/form"
+                render={() => (
+                  <FormApplication
+                    addingClient={this.addingClient}
+                    clientInfo={this.state.clientInfo}
+                    formHandleChange={this.formHandleChange}
+                  />
+                )}
+              />
+              <Route exact path="/current" render={() => <Current />} />
+              <Route
+                exact
+                path="/client"
+                render={() => (
+                  <Client
+                    deletePetHandleClick={this.deletePetHandleClick}
+                    clients={this.state.clients}
+                    addingPetToAClient={this.addingPetToAClient}
+                    clientPetOnClick={this.clientPetOnClick}
+                    clientPets={this.state.clientPets}
+                  />
+                )}
+              />
+              <Route exact path="/customnav" render={() => <CustomNav />} />
+              <Route
+                exact
+                path="/signup"
+                render={() => (
+                  <SignUp
+                    handleChange={this.handleChange}
+                    accounts={this.state.accounts}
+                    addingUser={this.addingUser}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/addPet"
+                render={() => (
+                  <AddPet
+                    petOnClickEdit={this.petOnClickEdit}
+                    petInfo={this.state.petInfo}
+                    breeds={this.state.breeds}
+                    submitingPet={this.submitingPet}
+                    petInfoInputChange={this.petInfoInputChange}
+                    clientPets={this.state.clientPets}
+                    petBreedOnChange={this.petBreedOnChange}
+                    breedName={this.state.breedName}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/editPet"
+                render={() => (
+                  <EditPet
+                    petInfo={this.state.petInfo}
+                    breeds={this.state.breeds}
+                    submitingEditPet={this.submitingEditPet}
+                    petInfoInputChange={this.petInfoInputChange}
+                    clientPets={this.state.clientPets}
+                    petBreedOnChange={this.petBreedOnChange}
+                    breedName={this.state.breedName}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/pet"
+                render={() => (
+                  <PetList
+                    clientPets={this.state.clientPets}
+                    clientName={this.state.clientName}
+                    petOnClickDelete={this.petOnClickDelete}
+                    petOnClickEdit={this.petOnClickEdit}
+                  />
+                )}
+              />
+            </Switch>
+          </div>
+        </div>
+      </div> */
+}

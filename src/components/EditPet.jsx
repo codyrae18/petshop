@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Form } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class EditPost extends Component {
   state = {};
@@ -13,7 +15,65 @@ class EditPost extends Component {
     } = this.props;
     return (
       <div>
-        <form
+        <Form onSubmit={submitingEditPet}>
+          <h1>Customer Info</h1>
+          <Form.Group unstackable widths={2}>
+            <Form.Input
+              label="Pets Name"
+              placeholder="Name"
+              id="name"
+              name="name"
+              value={petInfo.name}
+              onChange={petInfoInputChange}
+            />
+            <Form.Input
+              label="Color"
+              placeholder="Color"
+              onChange={petInfoInputChange}
+              id="color"
+              name="color"
+              value={petInfo.color}
+            />
+            <select class="ui dropdown">
+              <option value="">Breed</option>
+              {breeds.map((breed) => (
+                <option
+                  onClick={() => petBreedOnChange(breed)}
+                  id={breed.id}
+                  key={breed.id}
+                >
+                  {breed.name}
+                </option>
+              ))}
+            </select>
+          </Form.Group>
+          <Form.Group widths={2}>
+            <div class="field">
+              <label>Special Concerns</label>
+              <textarea
+                rows="2"
+                name="specialconcerns"
+                onChange={petInfoInputChange}
+                value={petInfo.specialconcerns}
+                id="specialconcerns"
+              ></textarea>
+            </div>
+            <Form.Input label="Rabies" placeholder="mm/dd/yyyy" />
+          </Form.Group>
+          <button class="ui button">Update</button>
+        </Form>
+        <Link to="/client">
+          <button className="back-button ui button">Back</button>
+        </Link>
+      </div>
+    );
+  }
+}
+
+export default EditPost;
+
+{
+  /* <form
           className="needs-validation"
           noValidate
           onSubmit={submitingEditPet}
@@ -109,10 +169,5 @@ class EditPost extends Component {
           <button className="btn btn-primary" type="submit">
             Submit form
           </button>
-        </form>
-      </div>
-    );
-  }
+        </form> */
 }
-
-export default EditPost;

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Form } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class AddPet extends Component {
   render() {
@@ -10,8 +12,69 @@ class AddPet extends Component {
       petBreedOnChange,
     } = this.props;
     return (
-      <div>
-        <form className="needs-validation" noValidate onSubmit={submitingPet}>
+      <div
+        style={{
+          margin: "5%",
+        }}
+      >
+        <Form onSubmit={submitingPet}>
+          <h1>Customer Info</h1>
+          <Form.Group unstackable widths={2}>
+            <Form.Input
+              label="Pets Name"
+              placeholder="Name"
+              id="name"
+              name="name"
+              value={petInfo.name}
+              onChange={petInfoInputChange}
+            />
+            <Form.Input
+              label="Color"
+              placeholder="Color"
+              onChange={petInfoInputChange}
+              id="color"
+              name="color"
+              value={petInfo.color}
+            />
+            <select class="ui dropdown">
+              <option value="">Breed</option>
+              {breeds.map((breed) => (
+                <option
+                  onClick={() => petBreedOnChange(breed)}
+                  id={breed.id}
+                  key={breed.id}
+                >
+                  {breed.name}
+                </option>
+              ))}
+            </select>
+          </Form.Group>
+          <Form.Group widths={2}>
+            <div class="field">
+              <label>Special Concerns</label>
+              <textarea
+                rows="2"
+                name="specialconcerns"
+                onChange={petInfoInputChange}
+                value={petInfo.specialconcerns}
+                id="specialconcerns"
+              ></textarea>
+            </div>
+            <Form.Input label="Rabies" placeholder="mm/dd/yyyy" />
+          </Form.Group>
+          <button class="ui button">Submit</button>
+        </Form>
+        <Link to="/client">
+          <button className="back-button ui button">Back</button>
+        </Link>
+      </div>
+    );
+  }
+}
+
+export default AddPet;
+
+/* <form className="needs-validation" noValidate onSubmit={submitingPet}>
           <div className="form-row">
             <div className="col-md-4 mb-3">
               <label for="validationCustom01">Name</label>
@@ -103,10 +166,15 @@ class AddPet extends Component {
           <button className="btn btn-primary" type="submit">
             Submit form
           </button>
-        </form>
-      </div>
-    );
-  }
-}
+        </form> */
 
-export default AddPet;
+// {breeds.map((breed) => (
+//   <option
+//     value=""
+//     onClick={() => petBreedOnChange(breed)}
+//     id={breed.id}
+//     key={breed.id}
+//   >
+//     {breed.name}
+//   </option>
+// ))}
