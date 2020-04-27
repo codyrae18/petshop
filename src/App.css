@@ -16,10 +16,6 @@
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -38,18 +34,30 @@
 }
 
 nav {
-  display: flex;
-  justify-content: space-around;
   min-height: 10vh;
   color: black;
-  background-color: burlywood;
-  font-style: oblique;
 }
 
 nav link {
-  display: flex;
-  justify-content: space-around;
   min-height: 10vh;
   color: grey;
   background-color: rgb(24, 210, 223);
+}
+
+.ui.menu {
+  font-size: 1rem;
+}
+
+.ui.segment:last-child {
+  margin-bottom: 0;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.clientform {
+  margin-top: -15%;
+}
+
+.back-button {
+  margin-top: 10%;
 }

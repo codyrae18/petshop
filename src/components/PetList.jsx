@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class PetList extends Component {
   render() {
@@ -16,23 +17,26 @@ class PetList extends Component {
                     <p className="card-text">
                       special concerns: {pets.specialconcerns}
                     </p>
-                    <a
+                    <Link
                       className="btn btn-primary ml-1"
                       onClick={() => this.props.petOnClickEdit(pets)}
                     >
                       Edit
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       className="btn btn-danger ml-1"
                       onClick={() => this.props.petOnClickDelete(pets)}
                     >
                       Delete
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
             ))}
         </div>
+        <Link to="/client">
+          <button className="back-button ui button">Back</button>
+        </Link>
       </div>
     );
   }
