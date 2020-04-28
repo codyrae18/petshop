@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 // import AddPet from "./AddPet";
 
 class Client extends Component {
@@ -33,6 +34,12 @@ class Client extends Component {
                     onClick={() => this.props.deletePetHandleClick(client)}
                   >
                     Delete Client
+                  </a>
+                  <a
+                    className="btn btn-primary ml-1"
+                    onClick={() => this.props.clientOnClickEdit(client)}
+                  >
+                    Edit
                   </a>
                 </div>
               </div>

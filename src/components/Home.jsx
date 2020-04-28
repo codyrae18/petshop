@@ -20,13 +20,49 @@ function Home() {
         <div class="four wide column">
           <div class="ui vertical fluid tabular menu">
             <a class="active item">Check In</a>
-            <a class="item">Expected Appointments</a>
+            <a class="item">Scheduled Appointments</a>
           </div>
         </div>
         <div class="twelve wide stretched column">
           <div class="ui segment">
             <div class="ui input focus">
               <input type="text" placeholder="Search..."></input>
+            </div>
+            <div>
+              <div
+                role="combobox"
+                aria-expanded="false"
+                class="ui search selection dropdown"
+              >
+                <input
+                  type="text"
+                  aria-autocomplete="list"
+                  autocomplete="off"
+                  class="search"
+                  tabindex="0"
+                  value=""
+                />
+                <div
+                  class="default text"
+                  role="alert"
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  State
+                </div>
+                <i aria-hidden="true" class="dropdown icon"></i>
+                <div role="listbox" class="menu transition">
+                  <div
+                    role="option"
+                    aria-checked="false"
+                    aria-selected="true"
+                    class="selected item"
+                  >
+                    <span class="text">Alabama</span>
+                  </div>
+                </div>
+              </div>
+
               <button class="ui secondary button">Check In</button>
               <button class="ui button">Cancel</button>
             </div>
