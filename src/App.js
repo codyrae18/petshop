@@ -8,6 +8,7 @@ import SignUp from "./components/SignUp";
 import AddPet from "./components/AddPet";
 import PetList from "./components/PetList";
 import EditPet from "./components/EditPet";
+import EditClient from "./components/EditClient";
 
 import "./App.css";
 
@@ -137,6 +138,49 @@ class App extends Component {
         });
       });
     this.props.history.push("/pet");
+  };
+  petBreedOnChange = (breed) => {
+    const breedId = breed.id;
+    const breedName = breed.name;
+    this.setState({ breedId });
+    this.setState({ breedName });
+  };
+
+  submitingEditClient = (event) => {
+    event.preventDefault();
+    const { clientInfo, client_id } = this.state;
+    const c_id = clientInfo.id;
+    const configObj = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        client: {
+          lastname: clientInfo.lastname,
+          firstname: clientInfo.firstname,
+          homephone: clientInfo.homephone,
+          workphone: clientInfo.workphone,
+        },
+      }),
+    };
+    fetch(`http://localhost:3000/clients/${c_id}`, configObj)
+      .then((resp) => resp.json())
+      .then((pet) => {
+        console.log(pet);
+        this.fetchingClientPets(client_id);
+        this.setState({
+          clientInfo: {
+            firstname: "",
+            lastname: "",
+            homephone: "",
+            workphone: "",
+          },
+        });
+        this.fetchingAllClients();
+      });
+    this.props.history.push("/client");
   };
   petBreedOnChange = (breed) => {
     const breedId = breed.id;
@@ -326,6 +370,11 @@ class App extends Component {
     this.props.history.push("/client");
   };
 
+  clientOnClickEdit = (clientInfo) => {
+    this.setState({ clientInfo });
+    this.props.history.push("/editclient");
+  };
+
   render() {
     return (
       <Fragment>
@@ -361,6 +410,7 @@ class App extends Component {
                   deletePetHandleClick={this.deletePetHandleClick}
                   clients={this.state.clients}
                   addingPetToAClient={this.addingPetToAClient}
+                  clientOnClickEdit={this.clientOnClickEdit}
                   clientPetOnClick={this.clientPetOnClick}
                   clientPets={this.state.clientPets}
                 />
@@ -406,6 +456,17 @@ class App extends Component {
                   clientPets={this.state.clientPets}
                   petBreedOnChange={this.petBreedOnChange}
                   breedName={this.state.breedName}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/editclient"
+              render={() => (
+                <EditClient
+                  submitingEditClient={this.submitingEditClient}
+                  clientInfo={this.state.clientInfo}
+                  formHandleChange={this.formHandleChange}
                 />
               )}
             />
