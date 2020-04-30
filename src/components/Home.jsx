@@ -1,76 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Message,
-  Segment,
-  Table,
-  Icon,
-  Search,
-} from "semantic-ui-react";
+import React, { Component } from "react";
+import { Dropdown } from "semantic-ui-react";
 
-function Home() {
-  return (
-    <div>
-      <h3 class="ui header">Dashboard</h3>
-      <div class="ui grid">
-        <div class="four wide column">
-          <div class="ui vertical fluid tabular menu">
-            <a class="active item">Check In</a>
-            <a class="item">Scheduled Appointments</a>
-          </div>
-        </div>
-        <div class="twelve wide stretched column">
-          <div class="ui segment">
-            <div class="ui input focus">
-              <input type="text" placeholder="Search..."></input>
+class Home extends Component {
+  render() {
+    console.log(this.props.services);
+    const { services, servicesOnClick } = this.props;
+
+    const serviceOption =
+      services.length > 0 &&
+      services.map((service) => ({
+        key: service.id,
+        text: service.name,
+        value: service.id,
+      }));
+
+    return (
+      <div>
+        <h3 className="ui header">Dashboard</h3>
+        <div className="ui grid">
+          <div className="four wide column">
+            <div className="ui vertical fluid tabular menu">
+              <a className="active item">Check In</a>
+              <a className="item">Scheduled Appointments</a>
             </div>
-            <div>
-              <div
-                role="combobox"
-                aria-expanded="false"
-                class="ui search selection dropdown"
-              >
-                <input
-                  type="text"
-                  aria-autocomplete="list"
-                  autocomplete="off"
-                  class="search"
-                  tabindex="0"
-                  value=""
+          </div>
+          <div className="dash twelve wide stretched column">
+            <div className="ui segment">
+              <div className="ui input focus">
+                <input type="text" placeholder="Search..."></input>
+                <Dropdown
+                  placeholder="Service"
+                  options={serviceOption}
+                  search
+                  selection
+                  fluid
+                  allowAdditions
+                  onChange={servicesOnClick}
                 />
-                <div
-                  class="default text"
-                  role="alert"
-                  aria-live="polite"
-                  aria-atomic="true"
-                >
-                  State
-                </div>
-                <i aria-hidden="true" class="dropdown icon"></i>
-                <div role="listbox" class="menu transition">
-                  <div
-                    role="option"
-                    aria-checked="false"
-                    aria-selected="true"
-                    class="selected item"
-                  >
-                    <span class="text">Alabama</span>
-                  </div>
-                </div>
               </div>
-
-              <button class="ui secondary button">Check In</button>
-              <button class="ui button">Cancel</button>
+              <button className="ui secondary button">Check In</button>
+              <button className="ui button">Cancel</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Home;

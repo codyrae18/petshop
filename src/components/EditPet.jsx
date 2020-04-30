@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class EditPost extends Component {
@@ -13,6 +13,14 @@ class EditPost extends Component {
       petInfoInputChange,
       petBreedOnChange,
     } = this.props;
+
+    const breedOption =
+      breeds.length > 0 &&
+      breeds.map((breed) => ({
+        key: breed.id,
+        text: breed.name,
+        value: breed.id,
+      }));
     return (
       <div>
         <Form onSubmit={submitingEditPet}>
@@ -34,18 +42,15 @@ class EditPost extends Component {
               name="color"
               value={petInfo.color}
             />
-            <select class="ui dropdown">
-              <option value="">Breed</option>
-              {breeds.map((breed) => (
-                <option
-                  onClick={() => petBreedOnChange(breed)}
-                  id={breed.id}
-                  key={breed.id}
-                >
-                  {breed.name}
-                </option>
-              ))}
-            </select>
+            <Dropdown
+              placeholder="Breed"
+              options={breedOption}
+              search
+              selection
+              fluid
+              allowAdditions
+              onChange={petBreedOnChange}
+            />
           </Form.Group>
           <Form.Group widths={2}>
             <div class="field">
