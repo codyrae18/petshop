@@ -38,11 +38,14 @@ class App extends Component {
     breedId: "",
     breedName: "",
     clientPets: "",
+    services: "",
+    breeds: "",
   };
 
   componentDidMount() {
     this.fetchingAllClients();
     this.fetchingAllBreed();
+    this.fetchingAllServices();
   }
 
   fetchingAllClients = () => {
@@ -65,9 +68,21 @@ class App extends Component {
       });
   };
 
+  fetchingAllServices = () => {
+    fetch(`http://localhost:3000/services`)
+      .then((resp) => resp.json())
+      .then((services) => {
+        console.log("fetching all services", services);
+        this.setState({
+          services,
+        });
+      });
+  };
+
   submitingPet = (event) => {
     this.props.history.push("pet");
-    const { petInfo, breedId, client_id, clientName } = this.state;
+    const { petInfo, breedId, client_id } = this.state;
+    console.log("breed id ----> ", breedId);
     event.preventDefault();
     const configObj = {
       method: "POST",
@@ -182,8 +197,9 @@ class App extends Component {
       });
     this.props.history.push("/client");
   };
-  petBreedOnChange = (breed) => {
-    const breedId = breed.id;
+  petBreedOnChange = (e, breed) => {
+    console.log("breed change", breed.value);
+    const breedId = breed.value;
     const breedName = breed.name;
     this.setState({ breedId });
     this.setState({ breedName });
@@ -375,6 +391,11 @@ class App extends Component {
     this.props.history.push("/editclient");
   };
 
+  servicesOnClick = (e, service) => {
+    console.log(e);
+    console.log(service);
+  };
+
   render() {
     return (
       <Fragment>
@@ -389,7 +410,16 @@ class App extends Component {
         </div>
         <div class="ui segment">
           <Switch>
-            <Route exact path="/" render={() => <Home />} />
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Home
+                  services={this.state.services}
+                  servicesOnClick={this.servicesOnClick}
+                />
+              )}
+            />
             <Route
               exact
               path="/form"

@@ -61,3 +61,14 @@ nav link {
 .back-button {
   margin-top: 10%;
 }
+
+.ui.segment {
+  width: 100%;
+  height: 70%;
+}
+
+.ui.search.selection.dropdown > input.search {
+  display: block;
+  width: 20%;
+  min-width: 0;
+}
