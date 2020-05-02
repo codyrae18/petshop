@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Search } from "semantic-ui-react";
+import SearchCheckIn from "./SearchCheckIn";
 
 class Home extends Component {
   render() {
@@ -27,7 +28,11 @@ class Home extends Component {
           <div className="dash twelve wide stretched column">
             <div className="ui segment">
               <div className="ui input focus">
-                <input type="text" placeholder="Search..."></input>
+                <SearchCheckIn
+                  handleResultSelect={this.props.handleResultSelect}
+                  handleSearchChange={this.props.handleSearchChange}
+                  clients={this.props.clients}
+                />
                 <Dropdown
                   placeholder="Service"
                   options={serviceOption}
