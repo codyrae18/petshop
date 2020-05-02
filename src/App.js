@@ -9,10 +9,12 @@ import AddPet from "./components/AddPet";
 import PetList from "./components/PetList";
 import EditPet from "./components/EditPet";
 import EditClient from "./components/EditClient";
+import _ from "lodash";
 
 import "./App.css";
 
 import { Switch, Route, withRouter } from "react-router-dom";
+const initialState = { isLoading: false, results: [], value: "" };
 
 class App extends Component {
   state = {
@@ -40,6 +42,7 @@ class App extends Component {
     clientPets: "",
     services: "",
     breeds: "",
+    initialState: "",
   };
 
   componentDidMount() {
@@ -396,6 +399,26 @@ class App extends Component {
     console.log(service);
   };
 
+  handleResultSelect = (e, { result }) =>
+    this.setState({ value: result.title });
+
+  handleSearchChange = (e, { value }) => {
+    this.setState({ isLoading: true, value });
+
+    setTimeout(() => {
+      if (this.state.value.length < 1)
+        return this.setState({ initialState: initialState });
+
+      const re = new RegExp(_.escapeRegExp(this.state.value), "i");
+      const isMatch = (result) => re.test(result.title);
+
+      this.setState({
+        isLoading: false,
+        results: _.filter(this.state.clients, isMatch),
+      });
+    }, 300);
+  };
+
   render() {
     return (
       <Fragment>
@@ -417,6 +440,9 @@ class App extends Component {
                 <Home
                   services={this.state.services}
                   servicesOnClick={this.servicesOnClick}
+                  clients={this.state.clients}
+                  handleResultSelect={this.handleResultSelect}
+                  handleSearchChange={this.handleSearchChange}
                 />
               )}
             />
