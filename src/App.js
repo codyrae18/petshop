@@ -41,13 +41,18 @@ class App extends Component {
     breedName: "",
     clientPets: "",
     services: "",
+    serviceId: "",
     breeds: "",
     initialState: "",
+    clientIdOnSelect: "",
+    pets: "",
+    petIdOnSelect: "",
   };
 
   componentDidMount() {
     this.fetchingAllClients();
     this.fetchingAllBreed();
+    this.fetchingAllPets();
     this.fetchingAllServices();
   }
 
@@ -78,6 +83,17 @@ class App extends Component {
         console.log("fetching all services", services);
         this.setState({
           services,
+        });
+      });
+  };
+
+  fetchingAllPets = () => {
+    fetch(`http://localhost:3000/pets`)
+      .then((resp) => resp.json())
+      .then((pets) => {
+        console.log("fetching all pets", pets);
+        this.setState({
+          pets,
         });
       });
   };
@@ -396,7 +412,41 @@ class App extends Component {
 
   servicesOnClick = (e, service) => {
     console.log(e);
-    console.log(service);
+    console.log("service => ", service.value);
+
+    const serviceId = service.value;
+    this.setState({ serviceId });
+  };
+
+  selectPetOnClick = (e, pet) => {
+    console.log("pet -> ", pet.value);
+
+    const petIdOnSelect = pet.value;
+    this.setState({ petIdOnSelect });
+  };
+
+  checkIn = (event) => {
+    event.preventDefault();
+    fetch("http://localhost:3000/appointments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        appointment: {
+          pet_id: this.state.petIdOnSelect,
+          service_id: this.state.serviceId,
+        },
+      }),
+    })
+      .then((r) => r.json())
+      .then((appointments) => {
+        console.log("after submitting", appointments);
+        this.setState({
+          appointments,
+        });
+      });
   };
 
   handleResultSelect = (e, { result }) =>
@@ -420,6 +470,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("pets", this.state.pets);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
@@ -440,7 +491,10 @@ class App extends Component {
                 <Home
                   services={this.state.services}
                   servicesOnClick={this.servicesOnClick}
-                  clients={this.state.clients}
+                  selectPetOnClick={this.selectPetOnClick}
+                  pets={this.state.pets}
+                  checkIn={this.checkIn}
+                  appointments={this.state.appointments}
                   handleResultSelect={this.handleResultSelect}
                   handleSearchChange={this.handleSearchChange}
                 />
