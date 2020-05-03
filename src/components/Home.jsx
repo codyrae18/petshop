@@ -5,7 +5,7 @@ import SearchCheckIn from "./SearchCheckIn";
 class Home extends Component {
   render() {
     console.log(this.props.services);
-    const { services, servicesOnClick } = this.props;
+    const { services, servicesOnClick, clients } = this.props;
 
     const serviceOption =
       services.length > 0 &&
@@ -15,6 +15,13 @@ class Home extends Component {
         value: service.id,
       }));
 
+    const customerOption =
+      clients.length > 0 &&
+      clients.map((client) => ({
+        key: client.id,
+        text: client.firstname,
+        value: client.id,
+      }));
     return (
       <div>
         <h3 className="ui header">Dashboard</h3>
@@ -32,6 +39,15 @@ class Home extends Component {
                   handleResultSelect={this.props.handleResultSelect}
                   handleSearchChange={this.props.handleSearchChange}
                   clients={this.props.clients}
+                />
+                <Dropdown
+                  placeholder="Customer"
+                  options={customerOption}
+                  search
+                  selection
+                  fluid
+                  allowAdditions
+                  onChange={servicesOnClick}
                 />
                 <Dropdown
                   placeholder="Service"
