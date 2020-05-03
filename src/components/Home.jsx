@@ -5,7 +5,13 @@ import SearchCheckIn from "./SearchCheckIn";
 class Home extends Component {
   render() {
     console.log(this.props.services);
-    const { services, servicesOnClick, clients } = this.props;
+    const {
+      services,
+      servicesOnClick,
+      selectPetOnClick,
+      pets,
+      checkIn,
+    } = this.props;
 
     const serviceOption =
       services.length > 0 &&
@@ -15,12 +21,12 @@ class Home extends Component {
         value: service.id,
       }));
 
-    const customerOption =
-      clients.length > 0 &&
-      clients.map((client) => ({
-        key: client.id,
-        text: client.firstname,
-        value: client.id,
+    const petOption =
+      pets.length > 0 &&
+      pets.map((pet) => ({
+        key: pet.id,
+        text: pet.name,
+        value: pet.id,
       }));
     return (
       <div>
@@ -38,16 +44,15 @@ class Home extends Component {
                 <SearchCheckIn
                   handleResultSelect={this.props.handleResultSelect}
                   handleSearchChange={this.props.handleSearchChange}
-                  clients={this.props.clients}
                 />
                 <Dropdown
-                  placeholder="Customer"
-                  options={customerOption}
+                  placeholder="Pet"
+                  options={petOption}
                   search
                   selection
                   fluid
                   allowAdditions
-                  onChange={servicesOnClick}
+                  onChange={selectPetOnClick}
                 />
                 <Dropdown
                   placeholder="Service"
@@ -59,7 +64,9 @@ class Home extends Component {
                   onChange={servicesOnClick}
                 />
               </div>
-              <button className="ui secondary button">Check In</button>
+              <button className="ui secondary button" onClick={checkIn}>
+                Check In
+              </button>
               <button className="ui button">Cancel</button>
             </div>
           </div>
