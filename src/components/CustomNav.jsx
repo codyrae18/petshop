@@ -14,6 +14,9 @@ class CustomNav extends Component {
         <Link to="/form" className="item">
           Add Client
         </Link>
+        <Link to="/history" className="item">
+          History
+        </Link>
         <div className="right menu">
           <Link className="ui item">Calendar</Link>
           <Link className="ui item">Logout</Link>

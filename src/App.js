@@ -9,12 +9,12 @@ import AddPet from "./components/AddPet";
 import PetList from "./components/PetList";
 import EditPet from "./components/EditPet";
 import EditClient from "./components/EditClient";
+import History from "./components/History";
 import _ from "lodash";
 
 import "./App.css";
 
 import { Switch, Route, withRouter } from "react-router-dom";
-const initialState = { isLoading: false, results: [], value: "" };
 
 class App extends Component {
   state = {
@@ -43,14 +43,19 @@ class App extends Component {
     services: "",
     serviceId: "",
     breeds: "",
-    initialState: "",
     clientIdOnSelect: "",
     pets: "",
     petIdOnSelect: "",
+    appointments: "",
+
+    isLoading: false,
+    results: "",
+    value: "",
   };
 
   componentDidMount() {
     this.fetchingAllClients();
+    this.fetchingAllAppointments();
     this.fetchingAllBreed();
     this.fetchingAllPets();
     this.fetchingAllServices();
@@ -80,7 +85,6 @@ class App extends Component {
     fetch(`http://localhost:3000/services`)
       .then((resp) => resp.json())
       .then((services) => {
-        console.log("fetching all services", services);
         this.setState({
           services,
         });
@@ -91,9 +95,18 @@ class App extends Component {
     fetch(`http://localhost:3000/pets`)
       .then((resp) => resp.json())
       .then((pets) => {
-        console.log("fetching all pets", pets);
         this.setState({
           pets,
+        });
+      });
+  };
+
+  fetchingAllAppointments = () => {
+    fetch(`http://localhost:3000/appointments`)
+      .then((resp) => resp.json())
+      .then((appointments) => {
+        this.setState({
+          appointments,
         });
       });
   };
@@ -446,30 +459,33 @@ class App extends Component {
         this.setState({
           appointments,
         });
+        this.fetchingAllAppointments();
       });
   };
 
-  handleResultSelect = (e, { result }) =>
-    this.setState({ value: result.title });
+  handleResultSelect = (e, { result }) => {
+    this.setState({ value: result.name });
+  };
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value });
 
     setTimeout(() => {
       if (this.state.value.length < 1)
-        return this.setState({ initialState: initialState });
+        return this.setState({ isLoading: false, results: "", value: "" });
 
       const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-      const isMatch = (result) => re.test(result.title);
+      const isMatch = (result) => re.test(result.name);
 
       this.setState({
         isLoading: false,
-        results: _.filter(this.state.clients, isMatch),
+        results: _.filter(this.state.pets, isMatch),
       });
     }, 300);
   };
 
   render() {
+    console.log("appointments", this.state.appointments);
     console.log("pets", this.state.pets);
     return (
       <Fragment>
@@ -497,6 +513,9 @@ class App extends Component {
                   appointments={this.state.appointments}
                   handleResultSelect={this.handleResultSelect}
                   handleSearchChange={this.handleSearchChange}
+                  isLoading={this.state.isLoading}
+                  results={this.state.results}
+                  value={this.state.value}
                 />
               )}
             />
@@ -510,6 +529,11 @@ class App extends Component {
                   formHandleChange={this.formHandleChange}
                 />
               )}
+            />
+            <Route
+              exact
+              path="/history"
+              render={() => <History pets={this.state.pets} />}
             />
             <Route exact path="/current" render={() => <Current />} />
             <Route

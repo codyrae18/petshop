@@ -8,15 +8,17 @@ class PetList extends Component {
         <h1>{this.props.clientName}'s Pet list</h1>
         <div className="row mt-2">
           {this.props.clientPets.length > 0 &&
-            this.props.clientPets.map((pets) => (
+            this.props.clientPets.map((pets, { appointments }, i) => (
               <div className="col-sm-6 mt-2">
                 <div className="card">
-                  <div className="card-body">
+                  <div className="card-body" key={i}>
                     <h5 className="card-title">{pets.name}</h5>
                     <p className="card-text">color: {pets.color}</p>
                     <p className="card-text">
                       special concerns: {pets.specialconcerns}
                     </p>
+
+                    <div></div>
                     <Link
                       className="btn btn-primary ml-1"
                       onClick={() => this.props.petOnClickEdit(pets)}
@@ -43,3 +45,7 @@ class PetList extends Component {
 }
 
 export default PetList;
+
+// {appointments.map((appointment, j) => (
+// <p key={j}>{appointment.created_at}</p>
+// ))}
