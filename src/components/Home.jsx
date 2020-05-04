@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { Dropdown, Search } from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react";
 import SearchCheckIn from "./SearchCheckIn";
 
 class Home extends Component {
   render() {
-    console.log(this.props.services);
     const {
       services,
       servicesOnClick,
       selectPetOnClick,
       pets,
+      appointments,
       checkIn,
     } = this.props;
 
@@ -34,8 +34,8 @@ class Home extends Component {
         <div className="ui grid">
           <div className="four wide column">
             <div className="ui vertical fluid tabular menu">
-              <a className="active item">Check In</a>
-              <a className="item">Scheduled Appointments</a>
+              <a className="active item">Quick Check In</a>
+              <a className="item">Checked In {appointments.length}</a>
             </div>
           </div>
           <div className="dash twelve wide stretched column">
@@ -44,6 +44,10 @@ class Home extends Component {
                 <SearchCheckIn
                   handleResultSelect={this.props.handleResultSelect}
                   handleSearchChange={this.props.handleSearchChange}
+                  pets={this.props.pets}
+                  isLoading={this.props.isLoading}
+                  results={this.props.results}
+                  value={this.props.value}
                 />
                 <Dropdown
                   placeholder="Pet"
@@ -149,3 +153,16 @@ export default Home;
         </Grid.Column>
       </Grid> */
 }
+
+//
+
+// {appointments.length > 0 &&
+//   appointments.map((appointment) => (
+//     <div>
+//       <p>pet id: {appointment.pet_id}</p>
+//       <p>service id: {appointment.service_id}</p>
+//       <h1>---</h1>
+//     </div>
+//   ))}
+
+//
