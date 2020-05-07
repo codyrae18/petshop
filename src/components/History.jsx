@@ -6,15 +6,19 @@ class History extends Component {
     return (
       <div>
         <h1>History</h1>
-        {this.props.pets.length > 0 &&
-          this.props.pets.map((pet) => (
-            <div>
-              <p> {pet.name}</p>
-              {pet.appointments.map((appointment) => (
-                <p>{appointment.created_at}</p>
-              ))}
-            </div>
-          ))}
+        <div className="row mt-2">
+          {this.props.pets.length > 0 &&
+            this.props.pets.map((pet) => (
+              <div className="col-sm-6 mt-2">
+                <div className="card">
+                  <h5 className="card-title">{pet.name}</h5>
+                  {pet.services.map((service) => (
+                    <p>{service.created_at}</p>
+                  ))}
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
     );
   }

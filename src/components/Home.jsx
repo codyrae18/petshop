@@ -74,6 +74,22 @@ class Home extends Component {
               <button className="ui button">Cancel</button>
             </div>
           </div>
+          <div className="row mt-2">
+            {this.props.pets.length > 0 &&
+              this.props.pets.map((pet) => (
+                <div className="col-sm-6 mt-2">
+                  <div className="card">
+                    <h5 className="card-title">{pet.name}</h5>
+                    {pet.services.map((service) => (
+                      <div className="card">
+                        <h5 className="card-title">{service.name}</h5>
+                        <p>{service.created_at}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     );

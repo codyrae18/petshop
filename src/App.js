@@ -51,6 +51,7 @@ class App extends Component {
     isLoading: false,
     results: "",
     value: "",
+    checkedIn: "",
   };
 
   componentDidMount() {
@@ -457,9 +458,11 @@ class App extends Component {
       .then((appointments) => {
         console.log("after submitting", appointments);
         this.setState({
-          appointments,
+          appointments: [...this.state.appointments, appointments],
         });
+        console.log("after setting state", this.state.appointments);
         this.fetchingAllAppointments();
+        this.fetchingAllPets();
       });
   };
 
@@ -486,6 +489,7 @@ class App extends Component {
 
   render() {
     console.log("appointments", this.state.appointments);
+    console.log("checkedIn", this.state.checkedIn);
     console.log("pets", this.state.pets);
     return (
       <Fragment>
