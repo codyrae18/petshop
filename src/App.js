@@ -12,8 +12,6 @@ import EditClient from "./components/EditClient";
 import History from "./components/History";
 import _ from "lodash";
 
-import "./App.css";
-
 import { Switch, Route, withRouter } from "react-router-dom";
 
 class App extends Component {
@@ -47,6 +45,9 @@ class App extends Component {
     pets: "",
     petIdOnSelect: "",
     appointments: "",
+
+    activeItem: "Home",
+    activeItemHome: "Quick Check In",
 
     isLoading: false,
     results: "",
@@ -459,6 +460,7 @@ class App extends Component {
         console.log("after submitting", appointments);
         this.setState({
           appointments: [...this.state.appointments, appointments],
+          activeItemHome: "Checked In",
         });
         console.log("after setting state", this.state.appointments);
         this.fetchingAllAppointments();
@@ -487,6 +489,11 @@ class App extends Component {
     }, 300);
   };
 
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+  handleItemClickHome = (e, { name }) =>
+    this.setState({ activeItemHome: name });
+
   render() {
     console.log("appointments", this.state.appointments);
     console.log("checkedIn", this.state.checkedIn);
@@ -499,7 +506,7 @@ class App extends Component {
             Manage your account settings and set e-mail preferences.
           </div>
         </div>
-        <div class="ui pointing menu">
+        <div>
           <CustomNav />
         </div>
         <div class="ui segment">
@@ -509,6 +516,8 @@ class App extends Component {
               path="/"
               render={() => (
                 <Home
+                  activeItemHome={this.state.activeItemHome}
+                  handleItemClickHome={this.handleItemClickHome}
                   services={this.state.services}
                   servicesOnClick={this.servicesOnClick}
                   selectPetOnClick={this.selectPetOnClick}
@@ -554,7 +563,16 @@ class App extends Component {
                 />
               )}
             />
-            <Route exact path="/customnav" render={() => <CustomNav />} />
+            <Route
+              exact
+              path="/customnav"
+              render={() => (
+                <CustomNav
+                  handleItemClick={this.handleItemClick}
+                  activeItem={this.state.activeItem}
+                />
+              )}
+            />
             <Route
               exact
               path="/signup"

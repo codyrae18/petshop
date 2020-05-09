@@ -7,12 +7,7 @@ class EditClient extends Component {
     console.log("edit application props", this.props.clientInfo);
     const { clientInfo, formHandleChange, submitingEditClient } = this.props;
     return (
-      <div
-        style={{
-          margin: "10%",
-          padding: "5%",
-        }}
-      >
+      <div>
         <div className="clientform">
           <Form onSubmit={submitingEditClient}>
             <h1>Customer Info</h1>
@@ -58,11 +53,11 @@ class EditClient extends Component {
               />
             </Form.Group>
             <button class="ui button">Submit</button>
+            <Link to="/client">
+              <button className="back-button ui button">Back</button>
+            </Link>
           </Form>
         </div>
-        <Link to="/client">
-          <button className="back-button ui button">Back</button>
-        </Link>
       </div>
     );
   }

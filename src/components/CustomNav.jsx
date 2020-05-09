@@ -1,26 +1,55 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Menu, Input, Segment } from "semantic-ui-react";
 
 class CustomNav extends Component {
   render() {
+    const { activeItem } = this.props;
+
     return (
-      <div className="ui menu">
-        <Link to="/" className="item">
-          Home
-        </Link>
-        <Link to="/client" className="item">
-          Clients
-        </Link>
-        <Link to="/form" className="item">
-          Add Client
-        </Link>
-        <Link to="/history" className="item">
-          History
-        </Link>
-        <div className="right menu">
-          <Link className="ui item">Calendar</Link>
-          <Link className="ui item">Logout</Link>
-        </div>
+      <div>
+        <Menu pointing>
+          <Menu.Item
+            as={Link}
+            to="/"
+            name="home"
+            active={activeItem === "home"}
+            onClick={this.props.handleItemClick}
+          />
+          <Menu.Item
+            as={Link}
+            to="/client"
+            name="Clients"
+            active={activeItem === "Clients"}
+            onClick={this.props.handleItemClick}
+          />
+          <Menu.Item
+            as={Link}
+            to="/form"
+            name="New Client"
+            active={activeItem === "New Client"}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            as={Link}
+            to="/history"
+            name="History"
+            active={activeItem === "History"}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Menu position="right">
+            <Menu.Item>
+              <Input icon="search" placeholder="Search..." />
+            </Menu.Item>
+            <Menu.Item
+              as={Link}
+              to="/logout"
+              name="Logout"
+              active={activeItem === "Logout"}
+              onClick={this.handleItemClick}
+            />
+          </Menu.Menu>
+        </Menu>
       </div>
     );
   }
@@ -87,3 +116,22 @@ export default CustomNav;
 //     onChange={this.props.searchHandleChange}
 //   />
 // </Form>
+
+{
+  /* <Link to="/" className="item">
+          Home
+        </Link>
+        <Link to="/client" className="item">
+          Clients
+        </Link>
+        <Link to="/form" className="item">
+          Add Client
+        </Link>
+        <Link to="/history" className="item">
+          History
+        </Link>
+        <div className="right menu">
+          <Link className="ui item">Calendar</Link>
+          <Link className="ui item">Logout</Link>
+        </div> */
+}

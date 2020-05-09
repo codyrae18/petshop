@@ -11,9 +11,12 @@ class History extends Component {
             this.props.pets.map((pet) => (
               <div className="col-sm-6 mt-2">
                 <div className="card">
-                  <h5 className="card-title">{pet.name}</h5>
+                  <h3 className="card-title">{pet.name}</h3>
                   {pet.services.map((service) => (
-                    <p>{service.created_at}</p>
+                    <div>
+                      <h4>{service.name}</h4>
+                      <p>{service.created_at}</p>
+                    </div>
                   ))}
                 </div>
               </div>

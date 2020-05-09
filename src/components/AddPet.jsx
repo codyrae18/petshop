@@ -20,11 +20,7 @@ class AddPet extends Component {
         value: breed.id,
       }));
     return (
-      <div
-        style={{
-          margin: "5%",
-        }}
-      >
+      <div>
         <Form onSubmit={submitingPet}>
           <h1>Customer Info</h1>
           <Form.Group unstackable widths={2}>
@@ -68,10 +64,10 @@ class AddPet extends Component {
             <Form.Input label="Rabies" placeholder="mm/dd/yyyy" />
           </Form.Group>
           <button class="ui button">Submit</button>
+          <Link to="/client">
+            <button className="back-button ui button">Back</button>
+          </Link>
         </Form>
-        <Link to="/client">
-          <button className="back-button ui button">Back</button>
-        </Link>
       </div>
     );
   }
