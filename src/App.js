@@ -33,6 +33,7 @@ class App extends Component {
       rabies: "",
     },
     clients: "",
+    filteredClients: [],
     client_id: "",
     clientName: "",
     breedId: "",
@@ -53,6 +54,7 @@ class App extends Component {
     results: "",
     value: "",
     checkedIn: "",
+    search: "",
   };
 
   componentDidMount() {
@@ -68,7 +70,8 @@ class App extends Component {
       .then((resp) => resp.json())
       .then((clients) => {
         this.setState({
-          clients,
+          clients: clients,
+          filteredClients: clients,
         });
       });
   };
@@ -518,10 +521,32 @@ class App extends Component {
       });
   };
 
+  searchHandleChange = (input, e) => {
+    console.log("input", input);
+    console.log("e", e);
+
+    this.setState({ search: input.target.value });
+
+    const lowercasedSearchInput = this.state.search.toLowerCase();
+    console.log("lower case search input", lowercasedSearchInput);
+
+    const searchResults = this.state.clients.filter((client) => {
+      let lowercasedClient = client.firstname.toLowerCase();
+      return lowercasedClient.includes(lowercasedSearchInput);
+    });
+    console.log("search results", searchResults);
+
+    this.setState({
+      filteredClients: searchResults,
+    });
+
+    if (input.nativeEvent.inputType === "deleteContentBackward") {
+      this.fetchingAllClients();
+    }
+  };
+
   render() {
-    console.log("appointments", this.state.appointments);
-    console.log("checkedIn", this.state.checkedIn);
-    console.log("pets", this.state.pets);
+    console.log("search input: ", this.state.search);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
@@ -531,7 +556,7 @@ class App extends Component {
           </div>
         </div>
         <div>
-          <CustomNav />
+          <CustomNav searchHandleChange={this.searchHandleChange} />
         </div>
         <div class="ui segment">
           <Switch>
@@ -580,6 +605,7 @@ class App extends Component {
               render={() => (
                 <Client
                   deletePetHandleClick={this.deletePetHandleClick}
+                  filteredClients={this.state.filteredClients}
                   clients={this.state.clients}
                   addingPetToAClient={this.addingPetToAClient}
                   clientOnClickEdit={this.clientOnClickEdit}
@@ -594,6 +620,7 @@ class App extends Component {
               render={() => (
                 <CustomNav
                   handleItemClick={this.handleItemClick}
+                  search={this.state.search}
                   activeItem={this.state.activeItem}
                 />
               )}

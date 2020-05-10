@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Input, Segment } from "semantic-ui-react";
+import { Menu, Input } from "semantic-ui-react";
 
 class CustomNav extends Component {
   render() {
@@ -39,7 +39,13 @@ class CustomNav extends Component {
           />
           <Menu.Menu position="right">
             <Menu.Item>
-              <Input icon="search" placeholder="Search..." />
+              <Input
+                icon="search"
+                placeholder="Search..."
+                name="search"
+                value={this.props.search}
+                onChange={this.props.searchHandleChange}
+              />
             </Menu.Item>
             <Menu.Item
               as={Link}

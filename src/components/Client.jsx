@@ -7,7 +7,7 @@ class Client extends Component {
     return (
       <div>
         <div className="row mt-2">
-          {this.props.clients.map((client) => (
+          {this.props.filteredClients.map((client) => (
             <div className="col-sm-6 mt-2">
               <div className="card">
                 <div className="card-body">
