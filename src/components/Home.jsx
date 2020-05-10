@@ -34,6 +34,7 @@ class Home extends Component {
                 pets={this.props.pets}
                 appointments={this.props.appointments}
                 checkIn={this.props.checkIn}
+                finishOnClick={this.props.finishOnClick}
               />
             )}
             {activeItemHome === "Quick Check In" && (

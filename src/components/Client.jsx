@@ -12,6 +12,7 @@ class Client extends Component {
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">
+                    ({client.id}),
                     {client.lastname}, {client.firstname}
                   </h5>
                   <p className="card-text">home phone: {client.homephone}</p>

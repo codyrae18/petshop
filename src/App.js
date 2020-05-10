@@ -148,6 +148,7 @@ class App extends Component {
         });
         const client_id = this.state.client_id;
         this.fetchingClientPets(client_id);
+        this.fetchingAllPets();
       });
   };
 
@@ -370,6 +371,7 @@ class App extends Component {
     fetch(`http://localhost:3000/pets/${petId}`, {
       method: "DELETE",
     });
+    this.fetchingAllPets();
   };
 
   deletePetHandleClick = (client) => {
@@ -494,6 +496,28 @@ class App extends Component {
   handleItemClickHome = (e, { name }) =>
     this.setState({ activeItemHome: name });
 
+  finishOnClick = (data) => {
+    console.log("data on click", data);
+    const configObj = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        appointment: {
+          appointment_id: data.appointmentId,
+        },
+      }),
+    };
+    fetch(`http://localhost:3000/appointments/${data.appointmentId}`, configObj)
+      .then((resp) => resp.json())
+      .then((a) => {
+        console.log(a);
+        this.fetchingAllAppointments();
+      });
+  };
+
   render() {
     console.log("appointments", this.state.appointments);
     console.log("checkedIn", this.state.checkedIn);
@@ -517,6 +541,7 @@ class App extends Component {
               render={() => (
                 <Home
                   activeItemHome={this.state.activeItemHome}
+                  finishOnClick={this.finishOnClick}
                   handleItemClickHome={this.handleItemClickHome}
                   services={this.state.services}
                   servicesOnClick={this.servicesOnClick}
