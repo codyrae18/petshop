@@ -28,25 +28,37 @@ class CustomNav extends Component {
             to="/form"
             name="New Client"
             active={activeItem === "New Client"}
-            onClick={this.handleItemClick}
+            onClick={this.props.handleItemClick}
           />
           <Menu.Item
             as={Link}
             to="/history"
             name="History"
             active={activeItem === "History"}
-            onClick={this.handleItemClick}
+            onClick={this.props.handleItemClick}
           />
           <Menu.Menu position="right">
             <Menu.Item>
-              <Input
-                icon="search"
-                placeholder="Search..."
-                name="search"
-                value={this.props.search}
-                onChange={this.props.searchHandleChange}
-              />
+              {activeItem === "Clients" && (
+                <Input
+                  icon="search"
+                  placeholder="Search..."
+                  name="search"
+                  value={this.props.search}
+                  onChange={this.props.searchClientsHandleChange}
+                />
+              )}
+              {activeItem === "History" && (
+                <Input
+                  icon="search"
+                  placeholder="Search..."
+                  name="search"
+                  value={this.props.search}
+                  onChange={this.props.searchHistoryHandleChange}
+                />
+              )}
             </Menu.Item>
+
             <Menu.Item
               as={Link}
               to="/logout"

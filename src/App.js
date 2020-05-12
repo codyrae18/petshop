@@ -34,6 +34,7 @@ class App extends Component {
     },
     clients: "",
     filteredClients: [],
+    filteredPets: [],
     client_id: "",
     clientName: "",
     breedId: "",
@@ -102,6 +103,7 @@ class App extends Component {
       .then((pets) => {
         this.setState({
           pets,
+          filteredPets: pets,
         });
       });
   };
@@ -494,7 +496,9 @@ class App extends Component {
     }, 300);
   };
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+  };
 
   handleItemClickHome = (e, { name }) =>
     this.setState({ activeItemHome: name });
@@ -521,7 +525,7 @@ class App extends Component {
       });
   };
 
-  searchHandleChange = (input, e) => {
+  searchClientsHandleChange = (input, e) => {
     console.log("input", input);
     console.log("e", e);
 
@@ -545,6 +549,30 @@ class App extends Component {
     }
   };
 
+  searchHistoryHandleChange = (input, e) => {
+    console.log("input", input);
+    console.log("e", e);
+
+    this.setState({ search: input.target.value });
+
+    const lowercasedSearchInput = this.state.search.toLowerCase();
+    console.log("lower case search input", lowercasedSearchInput);
+
+    const searchResults = this.state.pets.filter((pet) => {
+      let lowercasedPet = pet.name.toLowerCase();
+      return lowercasedPet.includes(lowercasedSearchInput);
+    });
+    console.log("search results", searchResults);
+
+    this.setState({
+      filteredPets: searchResults,
+    });
+
+    if (input.nativeEvent.inputType === "deleteContentBackward") {
+      this.fetchingAllPets();
+    }
+  };
+
   render() {
     console.log("search input: ", this.state.search);
     return (
@@ -556,7 +584,12 @@ class App extends Component {
           </div>
         </div>
         <div>
-          <CustomNav searchHandleChange={this.searchHandleChange} />
+          <CustomNav
+            handleItemClick={this.handleItemClick}
+            activeItem={this.state.activeItem}
+            searchClientsHandleChange={this.searchClientsHandleChange}
+            searchHistoryHandleChange={this.searchHistoryHandleChange}
+          />
         </div>
         <div class="ui segment">
           <Switch>
@@ -596,7 +629,7 @@ class App extends Component {
             <Route
               exact
               path="/history"
-              render={() => <History pets={this.state.pets} />}
+              render={() => <History pets={this.state.filteredPets} />}
             />
             <Route exact path="/current" render={() => <Current />} />
             <Route
