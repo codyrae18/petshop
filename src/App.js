@@ -10,6 +10,7 @@ import PetList from "./components/PetList";
 import EditPet from "./components/EditPet";
 import EditClient from "./components/EditClient";
 import History from "./components/History";
+import Login from "./components/Login";
 import _ from "lodash";
 
 import { Switch, Route, withRouter } from "react-router-dom";
@@ -102,7 +103,7 @@ class App extends Component {
       .then((resp) => resp.json())
       .then((pets) => {
         this.setState({
-          pets,
+          pets: pets,
           filteredPets: pets,
         });
       });
@@ -251,9 +252,9 @@ class App extends Component {
     this.setState({ petInfo });
   };
 
-  handleLoginChange = (event) => {
+  handleLoginChange = (e, data) => {
     const login = { ...this.state.login };
-    login[event.currentTarget.name] = event.currentTarget.value;
+    login[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ login });
   };
 
@@ -336,7 +337,7 @@ class App extends Component {
     this.props.history.push("/addPet");
   };
 
-  addingUser = (event) => {
+  addingUser = (event, data) => {
     event.preventDefault();
 
     const { accounts } = this.state;
@@ -370,6 +371,7 @@ class App extends Component {
   };
 
   petOnClickDelete = (pet) => {
+    console.log("delete");
     const petId = pet.id;
     const pets = this.state.clientPets.filter((d) => d.id !== petId);
     this.setState({ clientPets: pets });
@@ -379,13 +381,14 @@ class App extends Component {
     this.fetchingAllPets();
   };
 
-  deletePetHandleClick = (client) => {
+  deleteClientHandleClick = (client) => {
     const clientId = client.id;
     const clients = this.state.clients.filter((c) => c.id !== clientId);
     this.setState({ clients });
     fetch(`http://localhost:3000/clients/${clientId}`, {
       method: "DELETE",
     });
+    this.fetchingAllClients();
   };
 
   petOnClickEdit = (pet) => {
@@ -498,6 +501,10 @@ class App extends Component {
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
+
+    if (name === "History") {
+      this.fetchingAllPets();
+    }
   };
 
   handleItemClickHome = (e, { name }) =>
@@ -574,7 +581,7 @@ class App extends Component {
   };
 
   render() {
-    console.log("search input: ", this.state.search);
+    console.log("login", this.state.login);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
@@ -637,7 +644,7 @@ class App extends Component {
               path="/client"
               render={() => (
                 <Client
-                  deletePetHandleClick={this.deletePetHandleClick}
+                  deleteClientHandleClick={this.deleteClientHandleClick}
                   filteredClients={this.state.filteredClients}
                   clients={this.state.clients}
                   addingPetToAClient={this.addingPetToAClient}
@@ -720,6 +727,16 @@ class App extends Component {
                   clientName={this.state.clientName}
                   petOnClickDelete={this.petOnClickDelete}
                   petOnClickEdit={this.petOnClickEdit}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/login"
+              render={() => (
+                <Login
+                  handleLoginChange={this.handleLoginChange}
+                  handleClick={this.handleClick}
                 />
               )}
             />
