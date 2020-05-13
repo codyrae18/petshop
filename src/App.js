@@ -68,7 +68,14 @@ class App extends Component {
   }
 
   fetchingAllClients = () => {
-    fetch(`http://localhost:3000/clients`)
+    let configObj = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    };
+    fetch(`http://localhost:3000/clients`, configObj)
       .then((resp) => resp.json())
       .then((clients) => {
         this.setState({
@@ -79,7 +86,14 @@ class App extends Component {
   };
 
   fetchingAllBreed = () => {
-    fetch(`http://localhost:3000/breeds`)
+    let configObj = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    };
+    fetch(`http://localhost:3000/breeds`, configObj)
       .then((resp) => resp.json())
       .then((breeds) => {
         this.setState({
@@ -89,7 +103,14 @@ class App extends Component {
   };
 
   fetchingAllServices = () => {
-    fetch(`http://localhost:3000/services`)
+    let configObj = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    };
+    fetch(`http://localhost:3000/services`, configObj)
       .then((resp) => resp.json())
       .then((services) => {
         this.setState({
@@ -99,7 +120,14 @@ class App extends Component {
   };
 
   fetchingAllPets = () => {
-    fetch(`http://localhost:3000/pets`)
+    let configObj = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    };
+    fetch(`http://localhost:3000/pets`, configObj)
       .then((resp) => resp.json())
       .then((pets) => {
         this.setState({
@@ -110,7 +138,14 @@ class App extends Component {
   };
 
   fetchingAllAppointments = () => {
-    fetch(`http://localhost:3000/appointments`)
+    let configObj = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    };
+    fetch(`http://localhost:3000/appointments`, configObj)
       .then((resp) => resp.json())
       .then((appointments) => {
         this.setState({
@@ -320,7 +355,14 @@ class App extends Component {
 
   fetchingClientPets = (client_id) => {
     console.log("client info");
-    fetch(`http://localhost:3000/clients/${client_id}`)
+    let configObj = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    };
+    fetch(`http://localhost:3000/clients/${client_id}`, configObj)
       .then((resp) => resp.json())
       .then((pets) => {
         console.log("my response", pets);
