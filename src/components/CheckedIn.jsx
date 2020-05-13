@@ -33,7 +33,7 @@ class CheckedIn extends Component {
     console.log("dataaaaaa", data);
     return (
       <Card.Group>
-        {data.length > 0 &&
+        {data.length > 0 ? (
           data.map((d) => (
             <Card>
               <Card.Content>
@@ -49,7 +49,14 @@ class CheckedIn extends Component {
                 </Button>
               </Card.Content>
             </Card>
-          ))}
+          ))
+        ) : (
+          <Card>
+            <Card.Content>
+              <Card.Header>No one is checked in</Card.Header>
+            </Card.Content>
+          </Card>
+        )}
       </Card.Group>
     );
   }

@@ -10,6 +10,7 @@ import PetList from "./components/PetList";
 import EditPet from "./components/EditPet";
 import EditClient from "./components/EditClient";
 import History from "./components/History";
+import Login from "./components/Login";
 import _ from "lodash";
 
 import { Switch, Route, withRouter } from "react-router-dom";
@@ -33,6 +34,8 @@ class App extends Component {
       rabies: "",
     },
     clients: "",
+    filteredClients: [],
+    filteredPets: [],
     client_id: "",
     clientName: "",
     breedId: "",
@@ -53,6 +56,7 @@ class App extends Component {
     results: "",
     value: "",
     checkedIn: "",
+    search: "",
   };
 
   componentDidMount() {
@@ -68,7 +72,8 @@ class App extends Component {
       .then((resp) => resp.json())
       .then((clients) => {
         this.setState({
-          clients,
+          clients: clients,
+          filteredClients: clients,
         });
       });
   };
@@ -98,7 +103,8 @@ class App extends Component {
       .then((resp) => resp.json())
       .then((pets) => {
         this.setState({
-          pets,
+          pets: pets,
+          filteredPets: pets,
         });
       });
   };
@@ -246,9 +252,9 @@ class App extends Component {
     this.setState({ petInfo });
   };
 
-  handleLoginChange = (event) => {
+  handleLoginChange = (e, data) => {
     const login = { ...this.state.login };
-    login[event.currentTarget.name] = event.currentTarget.value;
+    login[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ login });
   };
 
@@ -266,6 +272,7 @@ class App extends Component {
 
   handleClick = (event) => {
     const { login } = this.state;
+    console.log(login);
     event.preventDefault();
     const configObj = {
       method: "POST",
@@ -280,10 +287,10 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/login`, configObj)
+    fetch(`http://localhost:3000/api/login`, configObj)
       .then((resp) => resp.json())
       .then((json) => {
-        // console.log("json", json);
+        console.log("json", json);
         if (!json.hasOwnProperty("error")) {
           window.localStorage.setItem("token", json.jwt);
           window.localStorage.setItem("username", json.user.username);
@@ -307,7 +314,7 @@ class App extends Component {
       username: "",
       password: "",
     });
-
+    this.fetchingAllServices();
     this.props.history.push("/");
   };
 
@@ -331,7 +338,7 @@ class App extends Component {
     this.props.history.push("/addPet");
   };
 
-  addingUser = (event) => {
+  addingUser = (event, data) => {
     event.preventDefault();
 
     const { accounts } = this.state;
@@ -348,7 +355,7 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/signup`, configObj)
+    fetch(`http://localhost:3000/api/users`, configObj)
       .then((resp) => resp.json())
       .then((json) => {
         console.log("json", json);
@@ -365,6 +372,7 @@ class App extends Component {
   };
 
   petOnClickDelete = (pet) => {
+    console.log("delete");
     const petId = pet.id;
     const pets = this.state.clientPets.filter((d) => d.id !== petId);
     this.setState({ clientPets: pets });
@@ -374,13 +382,14 @@ class App extends Component {
     this.fetchingAllPets();
   };
 
-  deletePetHandleClick = (client) => {
+  deleteClientHandleClick = (client) => {
     const clientId = client.id;
     const clients = this.state.clients.filter((c) => c.id !== clientId);
     this.setState({ clients });
     fetch(`http://localhost:3000/clients/${clientId}`, {
       method: "DELETE",
     });
+    this.fetchingAllClients();
   };
 
   petOnClickEdit = (pet) => {
@@ -491,7 +500,13 @@ class App extends Component {
     }, 300);
   };
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name }) => {
+    this.setState({ activeItem: name });
+
+    if (name === "History") {
+      this.fetchingAllPets();
+    }
+  };
 
   handleItemClickHome = (e, { name }) =>
     this.setState({ activeItemHome: name });
@@ -518,10 +533,56 @@ class App extends Component {
       });
   };
 
+  searchClientsHandleChange = (input, e) => {
+    console.log("input", input);
+    console.log("e", e);
+
+    this.setState({ search: input.target.value });
+
+    const lowercasedSearchInput = this.state.search.toLowerCase();
+    console.log("lower case search input", lowercasedSearchInput);
+
+    const searchResults = this.state.clients.filter((client) => {
+      let lowercasedClient = client.firstname.toLowerCase();
+      return lowercasedClient.includes(lowercasedSearchInput);
+    });
+    console.log("search results", searchResults);
+
+    this.setState({
+      filteredClients: searchResults,
+    });
+
+    if (input.nativeEvent.inputType === "deleteContentBackward") {
+      this.fetchingAllClients();
+    }
+  };
+
+  searchHistoryHandleChange = (input, e) => {
+    console.log("input", input);
+    console.log("e", e);
+
+    this.setState({ search: input.target.value });
+
+    const lowercasedSearchInput = this.state.search.toLowerCase();
+    console.log("lower case search input", lowercasedSearchInput);
+
+    const searchResults = this.state.pets.filter((pet) => {
+      let lowercasedPet = pet.name.toLowerCase();
+      return lowercasedPet.includes(lowercasedSearchInput);
+    });
+    console.log("search results", searchResults);
+
+    this.setState({
+      filteredPets: searchResults,
+    });
+
+    if (input.nativeEvent.inputType === "deleteContentBackward") {
+      this.fetchingAllPets();
+    }
+  };
+
   render() {
-    console.log("appointments", this.state.appointments);
-    console.log("checkedIn", this.state.checkedIn);
-    console.log("pets", this.state.pets);
+    console.log("login", this.state.login);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
@@ -531,7 +592,12 @@ class App extends Component {
           </div>
         </div>
         <div>
-          <CustomNav />
+          <CustomNav
+            handleItemClick={this.handleItemClick}
+            activeItem={this.state.activeItem}
+            searchClientsHandleChange={this.searchClientsHandleChange}
+            searchHistoryHandleChange={this.searchHistoryHandleChange}
+          />
         </div>
         <div class="ui segment">
           <Switch>
@@ -571,7 +637,7 @@ class App extends Component {
             <Route
               exact
               path="/history"
-              render={() => <History pets={this.state.pets} />}
+              render={() => <History pets={this.state.filteredPets} />}
             />
             <Route exact path="/current" render={() => <Current />} />
             <Route
@@ -579,7 +645,8 @@ class App extends Component {
               path="/client"
               render={() => (
                 <Client
-                  deletePetHandleClick={this.deletePetHandleClick}
+                  deleteClientHandleClick={this.deleteClientHandleClick}
+                  filteredClients={this.state.filteredClients}
                   clients={this.state.clients}
                   addingPetToAClient={this.addingPetToAClient}
                   clientOnClickEdit={this.clientOnClickEdit}
@@ -594,6 +661,7 @@ class App extends Component {
               render={() => (
                 <CustomNav
                   handleItemClick={this.handleItemClick}
+                  search={this.state.search}
                   activeItem={this.state.activeItem}
                 />
               )}
@@ -660,6 +728,16 @@ class App extends Component {
                   clientName={this.state.clientName}
                   petOnClickDelete={this.petOnClickDelete}
                   petOnClickEdit={this.petOnClickEdit}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/login"
+              render={() => (
+                <Login
+                  handleLoginChange={this.handleLoginChange}
+                  handleClick={this.handleClick}
                 />
               )}
             />
