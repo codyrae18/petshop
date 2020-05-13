@@ -272,6 +272,7 @@ class App extends Component {
 
   handleClick = (event) => {
     const { login } = this.state;
+    console.log(login);
     event.preventDefault();
     const configObj = {
       method: "POST",
@@ -286,10 +287,10 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/login`, configObj)
+    fetch(`http://localhost:3000/api/login`, configObj)
       .then((resp) => resp.json())
       .then((json) => {
-        // console.log("json", json);
+        console.log("json", json);
         if (!json.hasOwnProperty("error")) {
           window.localStorage.setItem("token", json.jwt);
           window.localStorage.setItem("username", json.user.username);
@@ -313,7 +314,7 @@ class App extends Component {
       username: "",
       password: "",
     });
-
+    this.fetchingAllServices();
     this.props.history.push("/");
   };
 
@@ -354,7 +355,7 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/signup`, configObj)
+    fetch(`http://localhost:3000/api/users`, configObj)
       .then((resp) => resp.json())
       .then((json) => {
         console.log("json", json);
