@@ -34,7 +34,7 @@ class CheckedIn extends Component {
     return (
       <Card.Group>
         {data.length > 0 ? (
-          data.map((d) => (
+          data.reverse().map((d) => (
             <Card>
               <Card.Content>
                 <Card.Header>Name: {d.petName}</Card.Header>

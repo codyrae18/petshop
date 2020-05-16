@@ -11,6 +11,7 @@ import EditPet from "./components/EditPet";
 import EditClient from "./components/EditClient";
 import History from "./components/History";
 import Login from "./components/Login";
+import ServiceNew from "./components/ServiceNew";
 import _ from "lodash";
 
 import { Switch, Route, withRouter } from "react-router-dom";
@@ -57,6 +58,7 @@ class App extends Component {
     value: "",
     checkedIn: "",
     search: "",
+    serviceNewValue: "",
   };
 
   componentDidMount() {
@@ -297,6 +299,42 @@ class App extends Component {
     const accounts = { ...this.state.accounts };
     accounts[event.currentTarget.name] = event.currentTarget.value;
     this.setState({ accounts });
+  };
+
+  handleChangeServiceNew = (event) => {
+    const serviceNewValue = { ...this.state.serviceNewValue };
+    serviceNewValue[event.currentTarget.name] = event.currentTarget.value;
+    this.setState({ serviceNewValue });
+  };
+
+  addingNewService = (event, data) => {
+    event.preventDefault();
+
+    const { serviceNewValue } = this.state;
+    const configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        service: {
+          name: serviceNewValue.name,
+        },
+      }),
+    };
+    fetch(`http://localhost:3000/services`, configObj)
+      .then((resp) => resp.json())
+      .then((json) => {
+        console.log("json", json);
+        this.props.history.push("/");
+        this.fetchingAllServices();
+        this.setState({
+          serviceNewValue: {
+            name: "",
+          },
+        });
+      });
   };
 
   formHandleChange = (event) => {
@@ -623,8 +661,14 @@ class App extends Component {
     }
   };
 
+  handleClickLogout = (event) => {
+    event.preventDefault();
+    localStorage.clear();
+    this.props.history.push("/");
+  };
+
   render() {
-    console.log("login", this.state.login);
+    console.log("service new ", this.state.serviceNewValue);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
@@ -639,6 +683,7 @@ class App extends Component {
             activeItem={this.state.activeItem}
             searchClientsHandleChange={this.searchClientsHandleChange}
             searchHistoryHandleChange={this.searchHistoryHandleChange}
+            handleClickLogout={this.handleClickLogout}
           />
         </div>
         <div class="ui segment">
@@ -680,6 +725,17 @@ class App extends Component {
               exact
               path="/history"
               render={() => <History pets={this.state.filteredPets} />}
+            />
+            <Route
+              exact
+              path="/services/new"
+              render={() => (
+                <ServiceNew
+                  serviceNew={this.state.serviceNewValue}
+                  handleChangeServiceNew={this.handleChangeServiceNew}
+                  addingNewService={this.addingNewService}
+                />
+              )}
             />
             <Route exact path="/current" render={() => <Current />} />
             <Route
