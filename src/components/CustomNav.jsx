@@ -36,6 +36,15 @@ class CustomNav extends Component {
                   onClick={this.props.handleItemClick}
                 />
               </Dropdown.Item>
+              <Dropdown.Item>
+                <Menu.Item
+                  as={Link}
+                  to="/services/new"
+                  name="New Services"
+                  active={activeItem === "New Services"}
+                  onClick={this.props.handleItemClick}
+                />
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -67,17 +76,29 @@ class CustomNav extends Component {
                 />
               )}
             </Menu.Item>
-            <Dropdown item text="Login">
+            <Dropdown item text="User">
               <Dropdown.Menu>
-                <Dropdown.Item>
-                  <Menu.Item
-                    as={Link}
-                    to="/Login"
-                    name="Login"
-                    active={activeItem === "Login"}
-                    onClick={this.handleItemClick}
-                  />
-                </Dropdown.Item>
+                {!window.localStorage.getItem("username") ? (
+                  <Dropdown.Item>
+                    <Menu.Item
+                      as={Link}
+                      to="/Login"
+                      name="Login"
+                      active={activeItem === "Login"}
+                      onClick={this.handleItemClick}
+                    />
+                  </Dropdown.Item>
+                ) : (
+                  <Dropdown.Item>
+                    <Menu.Item
+                      as={Link}
+                      to="/"
+                      name="logout"
+                      active={activeItem === "Home"}
+                      onClick={this.props.handleClickLogout}
+                    />
+                  </Dropdown.Item>
+                )}
                 <Dropdown.Item>
                   <Menu.Item
                     as={Link}

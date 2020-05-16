@@ -21,7 +21,7 @@ class History extends Component {
                   </Card>
                 ))}
               </Card.Content>
-              <Card.Content extra>
+              {/* <Card.Content extra>
                 <div className="ui two buttons">
                   <Button basic color="green">
                     Approve
@@ -30,7 +30,7 @@ class History extends Component {
                     Decline
                   </Button>
                 </div>
-              </Card.Content>
+              </Card.Content> */}
             </Card>
           ))
         ) : (
