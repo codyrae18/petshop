@@ -462,6 +462,18 @@ class App extends Component {
     this.fetchingAllPets();
   };
 
+  serviceOnClickDelete = (service) => {
+    console.log("service", service.id);
+    const serviceId = service.id;
+    const services = this.state.services.filter((d) => d.id !== serviceId);
+    console.log(services);
+    this.setState({ services });
+    fetch(`http://localhost:3000/services/${serviceId}`, {
+      method: "DELETE",
+    });
+    this.fetchingAllServices();
+  };
+
   deleteClientHandleClick = (client) => {
     const clientId = client.id;
     const clients = this.state.clients.filter((c) => c.id !== clientId);
@@ -734,6 +746,8 @@ class App extends Component {
                   serviceNew={this.state.serviceNewValue}
                   handleChangeServiceNew={this.handleChangeServiceNew}
                   addingNewService={this.addingNewService}
+                  services={this.state.services}
+                  serviceOnClickDelete={this.serviceOnClickDelete}
                 />
               )}
             />
