@@ -159,7 +159,7 @@ class App extends Component {
   submitingPet = (event) => {
     this.props.history.push("pet");
     const { petInfo, breedId, client_id } = this.state;
-    console.log("breed id ----> ", breedId);
+    console.log("pet info----> ", petInfo);
     event.preventDefault();
     const configObj = {
       method: "POST",
