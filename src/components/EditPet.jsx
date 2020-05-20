@@ -63,7 +63,7 @@ class EditPost extends Component {
                 id="specialconcerns"
               ></textarea>
             </div>
-            <Form.Input label="Rabies" placeholder="mm/dd/yyyy" />
+            <Form.Input type="date" label="Rabies" placeholder="mm/dd/yyyy" />
           </Form.Group>
           <button class="ui button">Update</button>
         </Form>
