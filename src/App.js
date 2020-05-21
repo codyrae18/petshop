@@ -650,9 +650,6 @@ class App extends Component {
   };
 
   searchHistoryHandleChange = (input, e) => {
-    console.log("input", input);
-    console.log("e", e);
-
     this.setState({ search: input.target.value });
 
     const lowercasedSearchInput = this.state.search.toLowerCase();
@@ -680,7 +677,7 @@ class App extends Component {
   };
 
   render() {
-    console.log("service new ", this.state.serviceNewValue);
+    console.log("pet info", this.state.petInfo);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">

@@ -18,6 +18,7 @@ class PetList extends Component {
                     <p className="card-text">
                       special concerns: {pet.specialconcerns}
                     </p>
+                    <p className="card-text">rabies expiration: {pet.rabies}</p>
 
                     <div></div>
                     <Link
