@@ -59,6 +59,7 @@ class App extends Component {
     checkedIn: "",
     search: "",
     serviceNewValue: "",
+    curTime: new Date().toLocaleDateString(),
   };
 
   componentDidMount() {
@@ -677,7 +678,7 @@ class App extends Component {
   };
 
   render() {
-    console.log("pet info", this.state.petInfo);
+    console.log(this.state.curTime);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
