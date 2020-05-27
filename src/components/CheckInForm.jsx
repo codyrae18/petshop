@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dropdown, Checkbox } from "semantic-ui-react";
+import { Dropdown, Checkbox, Form } from "semantic-ui-react";
 // import SearchCheckIn from "./SearchCheckIn";
 
 class CheckInForm extends Component {
@@ -34,28 +34,30 @@ class CheckInForm extends Component {
 
     return (
       <div className="ui segment">
-        <Dropdown
-          placeholder="Pet"
-          options={petOption}
-          search
-          selection
-          fluid
-          allowAdditions
-          onChange={selectPetOnClick}
-        />
-        <Dropdown
-          placeholder="Service"
-          options={serviceOption}
-          search
-          selection
-          fluid
-          allowAdditions
-          onChange={servicesOnClick}
-        />
-        {CheckboxExampleCheckbox()}
-        <button className="ui secondary button" onClick={checkIn}>
-          Check In
-        </button>
+        <Form onSubmit={checkIn}>
+          <Form.Group>
+            <Dropdown
+              placeholder="Pet"
+              options={petOption}
+              search
+              selection
+              fluid
+              allowAdditions
+              onChange={selectPetOnClick}
+            />
+            <Dropdown
+              placeholder="Service"
+              options={serviceOption}
+              search
+              selection
+              fluid
+              allowAdditions
+              onChange={servicesOnClick}
+            />
+            {CheckboxExampleCheckbox()}
+          </Form.Group>
+          <button className="ui secondary button">Check In</button>
+        </Form>
         <button className="ui button">Cancel</button>
       </div>
     );

@@ -546,6 +546,7 @@ class App extends Component {
 
   checkIn = (event) => {
     event.preventDefault();
+    console.log("event", event);
     fetch("http://localhost:3000/appointments", {
       method: "POST",
       headers: {
@@ -556,6 +557,7 @@ class App extends Component {
         appointment: {
           pet_id: this.state.petIdOnSelect,
           service_id: this.state.serviceId,
+          date: this.state.curTime,
         },
       }),
     })
