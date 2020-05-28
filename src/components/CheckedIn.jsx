@@ -6,7 +6,7 @@ class CheckedIn extends Component {
   render() {
     const { appointments, pets, services } = this.props;
     console.log("appointment", appointments);
-    console.log("pet", pets);
+    console.log("pets", pets);
 
     const data = [];
 
@@ -24,6 +24,7 @@ class CheckedIn extends Component {
                 petName: pet.name,
                 petId: a.pet_id,
                 service: s.name,
+                date: a.date,
               });
             }
           });
@@ -40,6 +41,7 @@ class CheckedIn extends Component {
                 <Card.Header>Name: {d.petName}</Card.Header>
                 <Card.Meta>pet</Card.Meta>
                 <Card.Description>Service: {d.service}</Card.Description>
+                <Card.Description>Service: {d.date}</Card.Description>
                 <Button
                   basic
                   color="pink"
