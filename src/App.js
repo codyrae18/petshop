@@ -680,7 +680,9 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.curTime);
+    console.log("services", this.state.services);
+    console.log("appointments", this.state.appointments);
+    console.log("pets", this.state.pets);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
@@ -736,7 +738,13 @@ class App extends Component {
             <Route
               exact
               path="/history"
-              render={() => <History pets={this.state.filteredPets} />}
+              render={() => (
+                <History
+                  pets={this.state.filteredPets}
+                  appointments={this.state.appointments}
+                  services={this.state.services}
+                />
+              )}
             />
             <Route
               exact

@@ -6,7 +6,7 @@ class CheckedIn extends Component {
   render() {
     const { appointments, pets, services } = this.props;
     console.log("appointment", appointments);
-    console.log("pet", pets);
+    console.log("pets", pets);
 
     const data = [];
 
