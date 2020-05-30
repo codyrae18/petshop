@@ -4,6 +4,7 @@ import { Button } from "semantic-ui-react";
 
 class PetList extends Component {
   render() {
+    console.log(this.props.clientPets);
     return (
       <div>
         <h1>{this.props.clientName}'s Pet list</h1>

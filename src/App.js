@@ -20,19 +20,19 @@ class App extends Component {
   state = {
     accounts: {
       username: "",
-      password: "",
+      password: ""
     },
     clientInfo: {
       firstname: "",
       lastname: "",
       homephone: "",
-      workphone: "",
+      workphone: ""
     },
     petInfo: {
       name: "",
       color: "",
       specialconcerns: "",
-      rabies: "",
+      rabies: ""
     },
     clients: "",
     filteredClients: [],
@@ -58,7 +58,7 @@ class App extends Component {
     value: "",
     checkedIn: "",
     search: "",
-    serviceNewValue: "",
+    serviceNewValue: ""
   };
 
   componentDidMount() {
@@ -74,15 +74,15 @@ class App extends Component {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
     };
     fetch(`http://localhost:3000/clients`, configObj)
-      .then((resp) => resp.json())
-      .then((clients) => {
+      .then(resp => resp.json())
+      .then(clients => {
         this.setState({
           clients: clients,
-          filteredClients: clients,
+          filteredClients: clients
         });
       });
   };
@@ -92,14 +92,14 @@ class App extends Component {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
     };
     fetch(`http://localhost:3000/breeds`, configObj)
-      .then((resp) => resp.json())
-      .then((breeds) => {
+      .then(resp => resp.json())
+      .then(breeds => {
         this.setState({
-          breeds,
+          breeds
         });
       });
   };
@@ -109,14 +109,14 @@ class App extends Component {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
     };
     fetch(`http://localhost:3000/services`, configObj)
-      .then((resp) => resp.json())
-      .then((services) => {
+      .then(resp => resp.json())
+      .then(services => {
         this.setState({
-          services,
+          services
         });
       });
   };
@@ -126,15 +126,15 @@ class App extends Component {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
     };
     fetch(`http://localhost:3000/pets`, configObj)
-      .then((resp) => resp.json())
-      .then((pets) => {
+      .then(resp => resp.json())
+      .then(pets => {
         this.setState({
           pets: pets,
-          filteredPets: pets,
+          filteredPets: pets
         });
       });
   };
@@ -144,19 +144,19 @@ class App extends Component {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
     };
     fetch(`http://localhost:3000/appointments`, configObj)
-      .then((resp) => resp.json())
-      .then((appointments) => {
+      .then(resp => resp.json())
+      .then(appointments => {
         this.setState({
-          appointments,
+          appointments
         });
       });
   };
 
-  submitingPet = (event) => {
+  submitingPet = event => {
     this.props.history.push("pet");
     const { petInfo, breedId, client_id } = this.state;
     console.log("breed id ----> ", breedId);
@@ -165,7 +165,7 @@ class App extends Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         pet: {
@@ -174,20 +174,20 @@ class App extends Component {
           specialconcerns: petInfo.specialconcerns,
           rabies: petInfo.rabies,
           breed_id: breedId,
-          client_id: client_id,
-        },
-      }),
+          client_id: client_id
+        }
+      })
     };
     fetch(`http://localhost:3000/pets`, configObj)
-      .then((resp) => resp.json())
-      .then((pet) => {
+      .then(resp => resp.json())
+      .then(pet => {
         this.setState({
           petInfo: {
             name: "",
             color: "",
             specialconcerns: "",
-            rabies: "",
-          },
+            rabies: ""
+          }
         });
         const client_id = this.state.client_id;
         this.fetchingClientPets(client_id);
@@ -195,7 +195,7 @@ class App extends Component {
       });
   };
 
-  submitingEditPet = (event) => {
+  submitingEditPet = event => {
     event.preventDefault();
     const { petInfo, client_id, breedId } = this.state;
     const petId = petInfo.id;
@@ -203,7 +203,7 @@ class App extends Component {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         pet: {
@@ -212,13 +212,13 @@ class App extends Component {
           specialconcerns: petInfo.specialconcerns,
           rabies: petInfo.rabies,
           breed_id: breedId,
-          client_id: client_id,
-        },
-      }),
+          client_id: client_id
+        }
+      })
     };
     fetch(`http://localhost:3000/pets/${petId}`, configObj)
-      .then((resp) => resp.json())
-      .then((pet) => {
+      .then(resp => resp.json())
+      .then(pet => {
         console.log(pet);
         this.fetchingClientPets(client_id);
         this.setState({
@@ -226,20 +226,20 @@ class App extends Component {
             name: "",
             color: "",
             specialconcerns: "",
-            rabies: "",
-          },
+            rabies: ""
+          }
         });
       });
     this.props.history.push("/pet");
   };
-  petBreedOnChange = (breed) => {
+  petBreedOnChange = breed => {
     const breedId = breed.id;
     const breedName = breed.name;
     this.setState({ breedId });
     this.setState({ breedName });
   };
 
-  submitingEditClient = (event) => {
+  submitingEditClient = event => {
     event.preventDefault();
     const { clientInfo, client_id } = this.state;
     const c_id = clientInfo.id;
@@ -247,20 +247,20 @@ class App extends Component {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         client: {
           lastname: clientInfo.lastname,
           firstname: clientInfo.firstname,
           homephone: clientInfo.homephone,
-          workphone: clientInfo.workphone,
-        },
-      }),
+          workphone: clientInfo.workphone
+        }
+      })
     };
     fetch(`http://localhost:3000/clients/${c_id}`, configObj)
-      .then((resp) => resp.json())
-      .then((pet) => {
+      .then(resp => resp.json())
+      .then(pet => {
         console.log(pet);
         this.fetchingClientPets(client_id);
         this.setState({
@@ -268,8 +268,8 @@ class App extends Component {
             firstname: "",
             lastname: "",
             homephone: "",
-            workphone: "",
-          },
+            workphone: ""
+          }
         });
         this.fetchingAllClients();
       });
@@ -283,7 +283,7 @@ class App extends Component {
     this.setState({ breedName });
   };
 
-  petInfoInputChange = (event) => {
+  petInfoInputChange = event => {
     const petInfo = { ...this.state.petInfo };
     petInfo[event.currentTarget.name] = event.currentTarget.value;
     this.setState({ petInfo });
@@ -295,13 +295,13 @@ class App extends Component {
     this.setState({ login });
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     const accounts = { ...this.state.accounts };
     accounts[event.currentTarget.name] = event.currentTarget.value;
     this.setState({ accounts });
   };
 
-  handleChangeServiceNew = (event) => {
+  handleChangeServiceNew = event => {
     const serviceNewValue = { ...this.state.serviceNewValue };
     serviceNewValue[event.currentTarget.name] = event.currentTarget.value;
     this.setState({ serviceNewValue });
@@ -315,35 +315,35 @@ class App extends Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         service: {
-          name: serviceNewValue.name,
-        },
-      }),
+          name: serviceNewValue.name
+        }
+      })
     };
     fetch(`http://localhost:3000/services`, configObj)
-      .then((resp) => resp.json())
-      .then((json) => {
+      .then(resp => resp.json())
+      .then(json => {
         console.log("json", json);
         this.props.history.push("/");
         this.fetchingAllServices();
         this.setState({
           serviceNewValue: {
-            name: "",
-          },
+            name: ""
+          }
         });
       });
   };
 
-  formHandleChange = (event) => {
+  formHandleChange = event => {
     const clientInfo = { ...this.state.clientInfo };
     clientInfo[event.currentTarget.name] = event.currentTarget.value;
     this.setState({ clientInfo });
   };
 
-  handleClick = (event) => {
+  handleClick = event => {
     const { login } = this.state;
     console.log(login);
     event.preventDefault();
@@ -351,18 +351,18 @@ class App extends Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         user: {
           username: login.username,
-          password: login.password,
-        },
-      }),
+          password: login.password
+        }
+      })
     };
     fetch(`http://localhost:3000/api/login`, configObj)
-      .then((resp) => resp.json())
-      .then((json) => {
+      .then(resp => resp.json())
+      .then(json => {
         console.log("json", json);
         if (!json.hasOwnProperty("error")) {
           window.localStorage.setItem("token", json.jwt);
@@ -375,42 +375,42 @@ class App extends Component {
           this.setState({ error: json.error });
         }
       })
-      .then((data) => {
+      .then(data => {
         const localUserId = localStorage.getItem("userId");
 
         if (localUserId) {
           this.fetchCurrentUser(localUserId);
         }
       })
-      .catch((error) => console.log("username or password did not match"));
+      .catch(error => console.log("username or password did not match"));
     this.setState({
       username: "",
-      password: "",
+      password: ""
     });
     this.fetchingAllServices();
     this.props.history.push("/");
   };
 
-  fetchingClientPets = (client_id) => {
+  fetchingClientPets = client_id => {
     console.log("client info");
     let configObj = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
+        Authorization: "Bearer " + localStorage.getItem("jwt")
+      }
     };
     fetch(`http://localhost:3000/clients/${client_id}`, configObj)
-      .then((resp) => resp.json())
-      .then((pets) => {
+      .then(resp => resp.json())
+      .then(pets => {
         console.log("my response", pets);
         this.setState({
-          clientPets: pets,
+          clientPets: pets
         });
       });
   };
 
-  addingPetToAClient = (client) => {
+  addingPetToAClient = client => {
     const client_id = client.id;
     this.fetchingClientPets(client_id);
     this.setState({ client_id });
@@ -426,24 +426,24 @@ class App extends Component {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         user: {
           username: accounts.username,
-          password: accounts.password,
-        },
-      }),
+          password: accounts.password
+        }
+      })
     };
     fetch(`http://localhost:3000/api/users`, configObj)
-      .then((resp) => resp.json())
-      .then((json) => {
+      .then(resp => resp.json())
+      .then(json => {
         console.log("json", json);
         this.props.history.push("/");
       });
   };
 
-  clientPetOnClick = (client) => {
+  clientPetOnClick = client => {
     const client_id = client.id;
     this.fetchingClientPets(client_id);
     this.setState({ client_id });
@@ -451,79 +451,79 @@ class App extends Component {
     this.props.history.push("/pet");
   };
 
-  petOnClickDelete = (pet) => {
+  petOnClickDelete = pet => {
     console.log("delete");
     const petId = pet.id;
-    const pets = this.state.clientPets.filter((d) => d.id !== petId);
+    const pets = this.state.clientPets.filter(d => d.id !== petId);
     this.setState({ clientPets: pets });
     fetch(`http://localhost:3000/pets/${petId}`, {
-      method: "DELETE",
+      method: "DELETE"
     });
     this.fetchingAllPets();
   };
 
-  serviceOnClickDelete = (service) => {
+  serviceOnClickDelete = service => {
     console.log("service", service.id);
     const serviceId = service.id;
-    const services = this.state.services.filter((d) => d.id !== serviceId);
+    const services = this.state.services.filter(d => d.id !== serviceId);
     console.log(services);
     this.setState({ services });
     fetch(`http://localhost:3000/services/${serviceId}`, {
-      method: "DELETE",
+      method: "DELETE"
     });
     this.fetchingAllServices();
   };
 
-  deleteClientHandleClick = (client) => {
+  deleteClientHandleClick = client => {
     const clientId = client.id;
-    const clients = this.state.clients.filter((c) => c.id !== clientId);
+    const clients = this.state.clients.filter(c => c.id !== clientId);
     this.setState({ clients });
     fetch(`http://localhost:3000/clients/${clientId}`, {
-      method: "DELETE",
+      method: "DELETE"
     });
     this.fetchingAllClients();
   };
 
-  petOnClickEdit = (pet) => {
+  petOnClickEdit = pet => {
     this.setState({ petInfo: pet });
     this.props.history.push("/editPet");
   };
 
-  addingClient = (event) => {
+  addingClient = event => {
     event.preventDefault();
     const { clientInfo } = this.state;
     fetch("http://localhost:3000/clients", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         client: {
           lastname: clientInfo.lastname,
           firstname: clientInfo.firstname,
           homephone: clientInfo.homephone,
-          workphone: clientInfo.workphone,
-        },
-      }),
+          workphone: clientInfo.workphone
+        }
+      })
     })
-      .then((r) => r.json())
-      .then((client) => {
+      .then(r => r.json())
+      .then(client => {
         console.log("after submitting", client);
         this.setState({
           clientInfo: {
             firstname: "",
             lastname: "",
             homephone: "",
-            workphone: "",
-          },
+            workphone: ""
+          }
         });
         this.fetchingAllClients();
       });
     this.props.history.push("/client");
   };
 
-  clientOnClickEdit = (clientInfo) => {
+  clientOnClickEdit = clientInfo => {
     this.setState({ clientInfo });
     this.props.history.push("/editclient");
   };
@@ -543,27 +543,27 @@ class App extends Component {
     this.setState({ petIdOnSelect });
   };
 
-  checkIn = (event) => {
+  checkIn = event => {
     event.preventDefault();
     fetch("http://localhost:3000/appointments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         appointment: {
           pet_id: this.state.petIdOnSelect,
-          service_id: this.state.serviceId,
-        },
-      }),
+          service_id: this.state.serviceId
+        }
+      })
     })
-      .then((r) => r.json())
-      .then((appointments) => {
+      .then(r => r.json())
+      .then(appointments => {
         console.log("after submitting", appointments);
         this.setState({
           appointments: [...this.state.appointments, appointments],
-          activeItemHome: "Checked In",
+          activeItemHome: "Checked In"
         });
         console.log("after setting state", this.state.appointments);
         this.fetchingAllAppointments();
@@ -583,11 +583,11 @@ class App extends Component {
         return this.setState({ isLoading: false, results: "", value: "" });
 
       const re = new RegExp(_.escapeRegExp(this.state.value), "i");
-      const isMatch = (result) => re.test(result.name);
+      const isMatch = result => re.test(result.name);
 
       this.setState({
         isLoading: false,
-        results: _.filter(this.state.pets, isMatch),
+        results: _.filter(this.state.pets, isMatch)
       });
     }, 300);
   };
@@ -603,23 +603,23 @@ class App extends Component {
   handleItemClickHome = (e, { name }) =>
     this.setState({ activeItemHome: name });
 
-  finishOnClick = (data) => {
+  finishOnClick = data => {
     console.log("data on click", data);
     const configObj = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: "application/json"
       },
       body: JSON.stringify({
         appointment: {
-          appointment_id: data.appointmentId,
-        },
-      }),
+          appointment_id: data.appointmentId
+        }
+      })
     };
     fetch(`http://localhost:3000/appointments/${data.appointmentId}`, configObj)
-      .then((resp) => resp.json())
-      .then((a) => {
+      .then(resp => resp.json())
+      .then(a => {
         console.log(a);
         this.fetchingAllAppointments();
       });
@@ -634,14 +634,14 @@ class App extends Component {
     const lowercasedSearchInput = this.state.search.toLowerCase();
     console.log("lower case search input", lowercasedSearchInput);
 
-    const searchResults = this.state.clients.filter((client) => {
+    const searchResults = this.state.clients.filter(client => {
       let lowercasedClient = client.firstname.toLowerCase();
       return lowercasedClient.includes(lowercasedSearchInput);
     });
     console.log("search results", searchResults);
 
     this.setState({
-      filteredClients: searchResults,
+      filteredClients: searchResults
     });
 
     if (input.nativeEvent.inputType === "deleteContentBackward") {
@@ -658,14 +658,14 @@ class App extends Component {
     const lowercasedSearchInput = this.state.search.toLowerCase();
     console.log("lower case search input", lowercasedSearchInput);
 
-    const searchResults = this.state.pets.filter((pet) => {
+    const searchResults = this.state.pets.filter(pet => {
       let lowercasedPet = pet.name.toLowerCase();
       return lowercasedPet.includes(lowercasedSearchInput);
     });
     console.log("search results", searchResults);
 
     this.setState({
-      filteredPets: searchResults,
+      filteredPets: searchResults
     });
 
     if (input.nativeEvent.inputType === "deleteContentBackward") {
@@ -673,14 +673,14 @@ class App extends Component {
     }
   };
 
-  handleClickLogout = (event) => {
+  handleClickLogout = event => {
     event.preventDefault();
     localStorage.clear();
     this.props.history.push("/");
   };
 
   render() {
-    console.log("service new ", this.state.serviceNewValue);
+    // console.log("service new ", this.state.serviceNewValue);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
