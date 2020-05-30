@@ -59,7 +59,7 @@ class App extends Component {
     checkedIn: "",
     search: "",
     serviceNewValue: "",
-    curTime: new Date().toLocaleDateString(),
+    curTime: "",
   };
 
   componentDidMount() {
@@ -68,6 +68,10 @@ class App extends Component {
     this.fetchingAllBreed();
     this.fetchingAllPets();
     this.fetchingAllServices();
+
+    this.setState({
+      curTime: new Date().toLocaleDateString(),
+    });
   }
 
   fetchingAllClients = () => {
@@ -683,6 +687,7 @@ class App extends Component {
     console.log("services", this.state.services);
     console.log("appointments", this.state.appointments);
     console.log("pets", this.state.pets);
+    console.log("curTime", this.state.curTime);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
