@@ -6,7 +6,11 @@ class History extends Component {
     const { pets, services } = this.props;
     const data = [];
 
-    if (pets.length > 0) pets.map((p) => console.log(p));
+    if (pets.length > 0)
+      pets.map((p) => {
+        console.log(p);
+        services.map((s) => console.log(s));
+      });
 
     console.log("history props", this.props);
     console.log(data);
