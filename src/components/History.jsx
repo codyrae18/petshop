@@ -6,14 +6,23 @@ class History extends Component {
     const { pets, services } = this.props;
     const data = [];
 
-    if (pets.length > 0)
-      pets.map((p) => {
-        console.log(p);
-        services.map((s) => console.log(s));
+    if (pets.length > 0) {
+      pets.map((pet) => {
+        console.log(pet.name);
+        if (pet.appointments.length > 0) {
+          pet.appointments.map((a) => {
+            const app = [];
+            app.push({
+              appointments: {
+                service: a.service_id,
+                date: a.date,
+              },
+            });
+          });
+        }
       });
+    }
 
-    console.log("history props", this.props);
-    console.log(data);
     return (
       <Card.Group>
         {this.props.pets.length > 0 ? (

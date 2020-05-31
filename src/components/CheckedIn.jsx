@@ -31,7 +31,6 @@ class CheckedIn extends Component {
         });
       });
 
-    console.log("dataaaaaa", data);
     return (
       <Card.Group>
         {data.length > 0 ? (
