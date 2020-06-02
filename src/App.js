@@ -684,6 +684,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("pets", this.state.pets);
     return (
       <Fragment>
         <div class="ui huge header center aligned blue">
