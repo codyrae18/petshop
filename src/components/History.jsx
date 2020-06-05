@@ -3,10 +3,11 @@ import { Card, Button } from "semantic-ui-react";
 
 class History extends Component {
   render() {
+    const { pets, services } = this.props;
     return (
       <Card.Group>
-        {this.props.pets.length > 0 && this.props.services.length ? (
-          this.props.pets.map((pet) => (
+        {pets.length > 0 && services.length ? (
+          pets.map((pet) => (
             <Card>
               <Card.Content>
                 <Card.Header>{pet.name}</Card.Header>
@@ -50,28 +51,6 @@ class History extends Component {
 }
 
 export default History;
-
-{
-  /* <div>
-        <h1>History</h1>
-        <div className="row mt-2">
-          {this.props.pets.length > 0 &&
-            this.props.pets.map((pet) => (
-              <div className="col-sm-6 mt-2">
-                <div className="card">
-                  <h3 className="card-title"></h3>
-                  {pet.services.map((service) => (
-                    <div>
-                      <h4>{service.name}</h4>
-                      <p>{service.created_at}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-        </div>
-      </div> */
-}
 
 // ready
 
