@@ -4,33 +4,26 @@ import { Card, Button } from "semantic-ui-react";
 class History extends Component {
   render() {
     const { pets, services } = this.props;
-    const date = [];
-
-    if (pets.length > 0) {
-      pets.map((pet) => {
-        console.log(pet.name);
-        if (pet.appointments.length > 0) {
-          pet.appointments.map((a) => {
-            data.push(a);
-          });
-        }
-      });
-    }
-
-    console.log(date);
-
     return (
       <Card.Group>
-        {this.props.pets.length > 0 ? (
-          this.props.pets.map((pet) => (
+        {pets.length > 0 && services.length ? (
+          pets.map((pet) => (
             <Card>
               <Card.Content>
                 <Card.Header>{pet.name}</Card.Header>
-                {pet.appointments.map((info) => (
-                  <Card.Meta>Date {info.date}</Card.Meta>
-                ))}
-                {pet.services.map((info) => (
-                  <Card.Meta>Date {info.name}</Card.Meta>
+                {pet.appointments.map((appointment) => (
+                  <div>
+                    <Card.Meta>Date: {appointment.date}</Card.Meta>
+                    <Card.Meta>Service: {appointment.service_id}</Card.Meta>
+                    <div>
+                      {pet.services.map(
+                        (service) =>
+                          service.id === appointment.service_id && (
+                            <Card.Meta>{service.name} </Card.Meta>
+                          )
+                      )}
+                    </div>
+                  </div>
                 ))}
               </Card.Content>
               <Card.Content extra>
@@ -58,28 +51,6 @@ class History extends Component {
 }
 
 export default History;
-
-{
-  /* <div>
-        <h1>History</h1>
-        <div className="row mt-2">
-          {this.props.pets.length > 0 &&
-            this.props.pets.map((pet) => (
-              <div className="col-sm-6 mt-2">
-                <div className="card">
-                  <h3 className="card-title"></h3>
-                  {pet.services.map((service) => (
-                    <div>
-                      <h4>{service.name}</h4>
-                      <p>{service.created_at}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-        </div>
-      </div> */
-}
 
 // ready
 
