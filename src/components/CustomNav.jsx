@@ -83,8 +83,8 @@ class CustomNav extends Component {
                     <Menu.Item
                       as={Link}
                       to="/Login"
-                      name="Login"
-                      active={activeItem === "Login"}
+                      name="Account"
+                      active={activeItem === "Account"}
                       onClick={this.handleItemClick}
                     />
                   </Dropdown.Item>
