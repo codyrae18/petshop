@@ -21,6 +21,7 @@ class SignUp extends Component {
             placeholder="Password"
             id="password"
             name="password"
+            type="password"
             onChange={handleChange}
           />
         </Form.Field>
