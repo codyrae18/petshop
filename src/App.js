@@ -85,6 +85,7 @@ class App extends Component {
     fetch(`http://localhost:3000/clients`, configObj)
       .then((resp) => resp.json())
       .then((clients) => {
+        console.log("hi this is from the heroku", clients);
         this.setState({
           clients: clients,
           filteredClients: clients,
