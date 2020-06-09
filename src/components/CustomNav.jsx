@@ -76,15 +76,15 @@ class CustomNav extends Component {
                 />
               )}
             </Menu.Item>
-            <Dropdown item text="User">
+            <Dropdown item text="Account">
               <Dropdown.Menu>
                 {!window.localStorage.getItem("username") ? (
                   <Dropdown.Item>
                     <Menu.Item
                       as={Link}
                       to="/Login"
-                      name="Account"
-                      active={activeItem === "Account"}
+                      name="Login"
+                      active={activeItem === "Login"}
                       onClick={this.handleItemClick}
                     />
                   </Dropdown.Item>
