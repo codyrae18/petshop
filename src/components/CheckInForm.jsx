@@ -65,14 +65,3 @@ class CheckInForm extends Component {
 }
 
 export default CheckInForm;
-
-{
-  /* <SearchCheckIn
-          handleResultSelect={this.props.handleResultSelect}
-          handleSearchChange={this.props.handleSearchChange}
-          pets={this.props.pets}
-          isLoading={this.props.isLoading}
-          results={this.props.results}
-          value={this.props.value}
-        /> */
-}
