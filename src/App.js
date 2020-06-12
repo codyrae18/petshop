@@ -82,7 +82,7 @@ class App extends Component {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
     };
-    fetch(`http://localhost:3000/clients`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/clients`, configObj)
       .then((resp) => resp.json())
       .then((clients) => {
         console.log("hi this is from the heroku", clients);
@@ -101,7 +101,7 @@ class App extends Component {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
     };
-    fetch(`http://localhost:3000/breeds`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/breeds`, configObj)
       .then((resp) => resp.json())
       .then((breeds) => {
         this.setState({
@@ -118,7 +118,7 @@ class App extends Component {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
     };
-    fetch(`http://localhost:3000/services`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/services`, configObj)
       .then((resp) => resp.json())
       .then((services) => {
         this.setState({
@@ -135,7 +135,7 @@ class App extends Component {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
     };
-    fetch(`http://localhost:3000/pets`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/pets`, configObj)
       .then((resp) => resp.json())
       .then((pets) => {
         this.setState({
@@ -153,7 +153,7 @@ class App extends Component {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
     };
-    fetch(`http://localhost:3000/appointments`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/appointments`, configObj)
       .then((resp) => resp.json())
       .then((appointments) => {
         this.setState({
@@ -184,7 +184,7 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/pets`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/pets`, configObj)
       .then((resp) => resp.json())
       .then((pet) => {
         this.setState({
@@ -222,7 +222,7 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/pets/${petId}`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/pets/${petId}`, configObj)
       .then((resp) => resp.json())
       .then((pet) => {
         console.log(pet);
@@ -264,7 +264,7 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/clients/${c_id}`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/clients/${c_id}`, configObj)
       .then((resp) => resp.json())
       .then((pet) => {
         console.log(pet);
@@ -329,7 +329,7 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/services`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/services`, configObj)
       .then((resp) => resp.json())
       .then((json) => {
         console.log("json", json);
@@ -366,26 +366,20 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/api/login`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/api/login`, configObj)
       .then((resp) => resp.json())
       .then((json) => {
         console.log("json", json);
         if (!json.hasOwnProperty("error")) {
+          console.log("hey");
           window.localStorage.setItem("token", json.jwt);
           window.localStorage.setItem("username", json.user.username);
           window.localStorage.setItem("userId", `${json.user.id}`);
-          // window.location.assign("http://localhost:3000/users");
+          // window.location.assign("https://k9-petshop.herokuapp.com/users");
           this.setState({ current_user: json.user });
           // console.log("fetching", json);
         } else {
           this.setState({ error: json.error });
-        }
-      })
-      .then((data) => {
-        const localUserId = localStorage.getItem("userId");
-
-        if (localUserId) {
-          this.fetchCurrentUser(localUserId);
         }
       });
     this.setState({
@@ -405,7 +399,7 @@ class App extends Component {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
     };
-    fetch(`http://localhost:3000/clients/${client_id}`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/clients/${client_id}`, configObj)
       .then((resp) => resp.json())
       .then((pets) => {
         console.log("my response", pets);
@@ -425,8 +419,8 @@ class App extends Component {
 
   addingUser = (event, data) => {
     event.preventDefault();
-
     const { accounts } = this.state;
+    console.log("accounts", accounts);
     const configObj = {
       method: "POST",
       headers: {
@@ -440,12 +434,12 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/api/users`, configObj)
+    fetch(`https://k9-petshop.herokuapp.com/api/users`, configObj)
       .then((resp) => resp.json())
       .then((json) => {
         console.log("json", json);
-        this.props.history.push("/");
       });
+    this.props.history.push("/");
   };
 
   clientPetOnClick = (client) => {
@@ -461,7 +455,7 @@ class App extends Component {
     const petId = pet.id;
     const pets = this.state.clientPets.filter((d) => d.id !== petId);
     this.setState({ clientPets: pets });
-    fetch(`http://localhost:3000/pets/${petId}`, {
+    fetch(`https://k9-petshop.herokuapp.com/pets/${petId}`, {
       method: "DELETE",
     });
     this.fetchingAllPets();
@@ -473,7 +467,7 @@ class App extends Component {
     const services = this.state.services.filter((d) => d.id !== serviceId);
     console.log(services);
     this.setState({ services });
-    fetch(`http://localhost:3000/services/${serviceId}`, {
+    fetch(`https://k9-petshop.herokuapp.com/services/${serviceId}`, {
       method: "DELETE",
     });
     this.fetchingAllServices();
@@ -483,7 +477,7 @@ class App extends Component {
     const clientId = client.id;
     const clients = this.state.clients.filter((c) => c.id !== clientId);
     this.setState({ clients });
-    fetch(`http://localhost:3000/clients/${clientId}`, {
+    fetch(`https://k9-petshop.herokuapp.com/clients/${clientId}`, {
       method: "DELETE",
     });
     this.fetchingAllClients();
@@ -497,7 +491,7 @@ class App extends Component {
   addingClient = (event) => {
     event.preventDefault();
     const { clientInfo } = this.state;
-    fetch("http://localhost:3000/clients", {
+    fetch("https://k9-petshop.herokuapp.com/clients", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -551,7 +545,7 @@ class App extends Component {
   checkIn = (event) => {
     event.preventDefault();
     console.log("event", event);
-    fetch("http://localhost:3000/appointments", {
+    fetch("https://k9-petshop.herokuapp.com/appointments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -624,7 +618,10 @@ class App extends Component {
         },
       }),
     };
-    fetch(`http://localhost:3000/appointments/${data.appointmentId}`, configObj)
+    fetch(
+      `https://k9-petshop.herokuapp.com/appointments/${data.appointmentId}`,
+      configObj
+    )
       .then((resp) => resp.json())
       .then((a) => {
         console.log(a);
