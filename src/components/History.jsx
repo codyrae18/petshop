@@ -51,14 +51,3 @@ class History extends Component {
 }
 
 export default History;
-
-// ready
-
-// {pet.services.map((service) => (
-//   <Card>
-//     <Card.Description>
-//       <strong>Service Type: {service.name}</strong>
-//     </Card.Description>
-//     <Card.Description></Card.Description>
-//   </Card>
-// ))}
