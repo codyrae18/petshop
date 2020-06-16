@@ -61,21 +61,6 @@ class Home extends Component {
 
 export default Home;
 
-//
-
-// {appointments.length > 0 &&
-//   appointments.map((appointment) => (
-//     <div>
-//       <p>pet id: {appointment.pet_id}</p>
-//       <p>service id: {appointment.service_id}</p>
-//       <h1>---</h1>
-//     </div>
-//   ))}
-
-//
-
-// ready code
-
 {
   /* <div>
   <h3 className="ui header">Dashboard</h3>
