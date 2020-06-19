@@ -50,7 +50,3 @@ class PetList extends Component {
 }
 
 export default PetList;
-
-// {appointments.map((appointment, j) => (
-// <p key={j}>{appointment.created_at}</p>
-// ))}
