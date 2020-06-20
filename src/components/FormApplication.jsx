@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 class FormApplication extends Component {
   render() {
-    // console.log("form application props", this.props);
     const { clientInfo, formHandleChange, addingClient } = this.props;
     return (
       <div>
